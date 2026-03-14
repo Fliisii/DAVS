@@ -1,16 +1,42 @@
-# React + Vite
+# Мини-приложение для ликвидации аварий в РЖД
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## О проекте
 
-Currently, two official plugins are available:
+Это мини-приложение для корпоративного мессенджера РЖД (Express), предназначенное для анализа данных и координации действий при ликвидации аварий на железной дороге.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Основная цель — **сокращение времени реагирования** за счет единого информационного пространства, автоматизации процессов и использования ИИ для работы с регламентами.
 
-## React Compiler
+## Ключевые возможности
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 🚨 Управление происшествиями
+Создание и редактирование карточки аварии с фото, описанием, местом и статусом. Единый источник информации для всего штаба.
 
-## Expanding the ESLint configuration
+### 💬 Коммуникация штаба
+Автоматическое создание чата для каждой аварии. Поддержка текста, фото, файлов и голосовых сообщений. **Офлайн-режим** с синхронизацией при подключении к сети.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 🤖 Чат с ИИ по регламентам
+Интеллектуальный поиск по документации — участники ликвидации могут задать вопрос и мгновенно получить ответ, не тратя время на ручной поиск.
+
+### 📊 Аналитика и отчётность
+Сбор данных о ходе ликвидации (начало, конец, причины задержек) с возможностью работы офлайн. Построение **диаграммы Ганта** и формирование итоговых отчётов для оценки эффективности.
+
+### 👥 Ролевая модель
+- **Дежурный ДАВС (администратор)** — управление правами, создание происшествий
+- **Участники штаба** — работа в чате, редактирование планов
+- **Начальство** — просмотр статистики и истории изменений
+
+## Ожидаемые результаты
+
+| Метрика | До | После |
+|--------|---|---|
+| Время от происшествия до начала ликвидации | ~3 часа | **1,5-2 часа** |
+| Экономия времени на одну аварию | — | **1-1,5 часа** |
+| Годовая экономия времени простоя | — | **50-75 часов** |
+| Годовая экономия (при 100 тыс. руб./час) | — | **~5 млн руб.** |
+
+## Целевая аудитория
+
+- Дежурные ДАВС
+- Участники штаба ликвидации
+- Начальники восстановительных поездов
+- Руководство ДАВС
