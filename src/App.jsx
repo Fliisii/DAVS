@@ -3,6 +3,7 @@ import './App.css'
 import { Routes, Route } from 'react-router-dom'
 import { TempPage } from './pages/TempPage/TempPage'
 import { Page42 } from './pages/Page42/Page42'
+import { AdminPanel } from './pages/AdminPanel/AdminPanel';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -11,6 +12,7 @@ function App() {
     <Routes>
       <Route path="/temp" element={<TempPage />} />
       <Route path="/page42" element={<Page42 />} />
+      <Route path="/admin" element={<AdminPanel />} />
     </Routes>
   )
 }
