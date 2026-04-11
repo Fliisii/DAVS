@@ -19,7 +19,6 @@ function App() {
       <Route path="/create" element={<CreateIncidentPage />} />
       <Route path="/admin" element={<AdminPanel />} />
       <Route path="/page42" element={<Page42 />} />
-      <Route path="/admin" element={<AdminPanel />} />
     </Routes>
   );
 }
