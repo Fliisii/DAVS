@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
@@ -6,9 +5,7 @@ import { TempPage } from './pages/TempPage/TempPage';
 import { Page42 } from './pages/Page42/Page42';
 import { IncidentCard } from './pages/IncidentCard/IncidentCard';
 import { CreateIncidentPage } from './pages/CreateIncidentPage/CreateIncidentPage';
-import { AdminPanel } from './pages/AdminPanel/AdminPanel'; 
-
-
+import { AdminPanel } from './pages/AdminPanel/AdminPanel';
 
 function App() {
 
