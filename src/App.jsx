@@ -5,6 +5,7 @@ import { TempPage } from './pages/TempPage/TempPage';
 import { Page42 } from './pages/Page42/Page42';
 import { IncidentCard } from './pages/IncidentCard/IncidentCard';
 import { CreateIncidentPage } from './pages/CreateIncidentPage/CreateIncidentPage';
+import { AdminPanel } from './pages/AdminPanel/AdminPanel'; 
 
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
       <Route path="/temp" element={<TempPage />} />
       <Route path="/incidentcard" element={<IncidentCard />} />
       <Route path="/create" element={<CreateIncidentPage />} />
+      <Route path="/admin" element={<AdminPanel />} />
       <Route path="/page42" element={<Page42 />} />
     </Routes>
   );
