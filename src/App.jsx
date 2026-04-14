@@ -16,6 +16,7 @@ function App() {
       <Route path="/create" element={<CreateIncidentPage />} />
       <Route path="/page42" element={<Page42 />} />
       <Route path="/ai_chat" element={<Ai_chat />} />
+      
     </Routes>
   );
 }
