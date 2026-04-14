@@ -6,6 +6,8 @@ import { Page42 } from './pages/Page42/Page42';
 import { IncidentCard } from './pages/IncidentCard/IncidentCard';
 import { CreateIncidentPage } from './pages/CreateIncidentPage/CreateIncidentPage';
 import { AdminPanel } from './pages/AdminPanel/AdminPanel';
+import { Ai_chat } from './pages/Ai_chat/Ai_chat';
+import { Flisi } from './pages/Flisi/flisi'
 
 function App() {
 
@@ -16,6 +18,8 @@ function App() {
       <Route path="/create" element={<CreateIncidentPage />} />
       <Route path="/admin" element={<AdminPanel />} />
       <Route path="/page42" element={<Page42 />} />
+      <Route path="/ai_chat" element={<Ai_chat />} />
+      <Route path="/Flisi" element={<Flisi />} />
     </Routes>
   );
 }
