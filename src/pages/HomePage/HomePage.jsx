@@ -1,31 +1,8 @@
-import { Link } from 'react-router-dom';
-import './HomePage.css';
-
 function HomePage() {
-  const menuItems = [
-    { path: '/incidentcard', label: 'Карта инцидента' },
-    { path: '/create', label: 'Создать инцидент' },
-    { path: '/admin', label: 'Админ-панель' },
-    { path: '/aichat', label: 'Чат с регламентами' },
-    { path: '/analytics', label: 'Аналитика ликвидации' },
-  ];
-
   return (
-    <div className="home-container">
-      <h1>Главная страница</h1>
-      <p>Выберите раздел для перехода:</p>
-      
-      <nav className="home-nav">
-        <ul className="nav-list">
-          {menuItems.map((item) => (
-            <li key={item.path}>
-              <Link to={item.path} className="nav-link">
-                {item.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </nav>
+    <div style={{ padding: '20px', background: 'white', borderRadius: '16px', boxShadow: '0 4px 12px rgba(0,0,0,0.05)' }}>
+      <h1 style={{ color: "black" }}> Добро пожаловать в ДАВС</h1>
+      <p>Выберите раздел в меню слева для начала работы.</p>
     </div>
   );
 }
