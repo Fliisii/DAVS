@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import './App.css';
+
 import { Routes, Route } from 'react-router-dom';
-import { TempPage } from './pages/TempPage/TempPage';
-import { Page42 } from './pages/Page42/Page42';
+import HomePage from './pages/HomePage/HomePage';
 import { IncidentCard } from './pages/IncidentCard/IncidentCard';
 import { CreateIncidentPage } from './pages/CreateIncidentPage/CreateIncidentPage';
 import { AdminPanel } from './pages/AdminPanel/AdminPanel';
@@ -13,13 +13,12 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/temp" element={<TempPage />} />
+      <Route path="/" element={<HomePage />} />
       <Route path="/incidentcard" element={<IncidentCard />} />
       <Route path="/create" element={<CreateIncidentPage />} />
       <Route path="/admin" element={<AdminPanel />} />
-      <Route path="/page42" element={<Page42 />} />
-      <Route path="/ai_chat" element={<Ai_chat />} />
-      <Route path="/Flisi" element={<Flisi />} />
+      <Route path="/aichat" element={<Ai_chat />} />
+      <Route path="/analytics" element={<Flisi />} />
     </Routes>
   );
 }
