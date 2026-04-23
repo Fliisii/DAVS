@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 import Layout from './Layout/Layout';
 
@@ -9,8 +9,12 @@ import { CreateIncidentPage } from './pages/CreateIncidentPage/CreateIncidentPag
 import { AdminPanel } from './pages/AdminPanel/AdminPanel';
 import { Ai_chat } from './pages/Ai_chat/Ai_chat';
 import { Flisi } from './pages/Flisi/flisi'
+import * as SDK from '@expressms/smartapp-sdk';
 
 function App() {
+  useEffect(() => {
+    SDK.ready();
+  }, []);
   return (
     <Routes>
       <Route element={<Layout />}>
