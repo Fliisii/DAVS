@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './Flisi.css';
 
 export const Flisi = () => {
   const [startDate, setStartDate] = useState('');
@@ -33,178 +34,68 @@ export const Flisi = () => {
   };
 
   return (
-    <div style={{
-      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-      minHeight: '100vh',
-      padding: '40px 20px',
-      fontFamily: "'Inter', 'Montserrat', sans-serif"
-    }}>
-      <div style={{
-        maxWidth: '1400px',
-        margin: '0 auto',
-        animation: 'fadeIn 0.5s ease-out'
-      }}>
+    <div className="flisi-page">
+      <div className="flisi-container">
         {/* Header */}
-        <div style={{
-          textAlign: 'center',
-          marginBottom: '40px'
-        }}>
-          <div style={{
-            display: 'inline-block',
-            background: 'rgba(255,255,255,0.2)',
-            backdropFilter: 'blur(10px)',
-            borderRadius: '100px',
-            padding: '8px 20px',
-            marginBottom: '20px'
-          }}>
-            <span style={{ color: 'white', fontWeight: '500' }}>📊 ДАВС Аналитика</span>
+        <div className="flisi-header">
+          <div className="flisi-badge">
+            <span>📊 ДАВС Аналитика</span>
           </div>
-          <h1 style={{
-            color: 'white',
-            fontSize: '2.5em',
-            margin: '0 0 10px 0',
-            fontWeight: '700',
-            textShadow: '0 2px 4px rgba(0,0,0,0.1)'
-          }}>
-            Аналитика ликвидации
-          </h1>
-          <p style={{ color: 'rgba(255,255,255,0.9)', fontSize: '1.1em' }}>
-            Управление процессами ликвидации происшествий
-          </p>
+          <h1 className="flisi-title">Аналитика ликвидации</h1>
+          <p className="flisi-subtitle">Управление процессами ликвидации происшествий</p>
         </div>
 
         {/* Main Card */}
-        <div style={{
-          background: 'white',
-          borderRadius: '32px',
-          boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)',
-          overflow: 'hidden'
-        }}>
+        <div className="flisi-card">
           {/* Timeline Section */}
-          <div style={{
-            background: 'linear-gradient(135deg, #f8f9ff 0%, #f0f2ff 100%)',
-            padding: '32px',
-            borderBottom: '1px solid rgba(0,0,0,0.05)'
-          }}>
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-              gap: '24px'
-            }}>
-              <div style={{
-                background: 'white',
-                borderRadius: '20px',
-                padding: '20px',
-                boxShadow: '0 4px 6px -2px rgba(0,0,0,0.05)'
-              }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-                  <div style={{
-                    width: '40px',
-                    height: '40px',
-                    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                    borderRadius: '12px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: 'white',
-                    fontSize: '1.2em'
-                  }}>🚀</div>
+          <div className="flisi-timeline-section">
+            <div className="flisi-timeline-grid">
+              {/* Start Block */}
+              <div className="flisi-timeline-block">
+                <div className="flisi-timeline-block-header">
+                  <div className="flisi-icon-box icon-start">🚀</div>
                   <div>
-                    <div style={{ fontSize: '0.85em', color: '#6b7280', fontWeight: '500' }}>СТАРТ</div>
-                    <div style={{ fontWeight: '600', color: '#1f2937' }}>Начало ликвидации</div>
+                    <div className="flisi-label">СТАРТ</div>
+                    <div className="flisi-label-title">Начало ликвидации</div>
                   </div>
                 </div>
-                <div style={{ display: 'flex', gap: '12px' }}>
+                <div className="flisi-input-row">
                   <input 
                     type="date" 
                     value={startDate}
                     onChange={(e) => setStartDate(e.target.value)}
-                    style={{ 
-                      flex: 1,
-                      padding: '12px 16px',
-                      borderRadius: '14px',
-                      border: '2px solid #e5e7eb',
-                      fontSize: '0.95em',
-                      transition: 'all 0.2s',
-                      outline: 'none'
-                    }}
-                    onFocus={(e) => e.target.style.borderColor = '#667eea'}
-                    onBlur={(e) => e.target.style.borderColor = '#e5e7eb'}
+                    className="flisi-input flisi-input-date flisi-focus-start"
                   />
                   <input 
                     type="time" 
                     value={startTime}
                     onChange={(e) => setStartTime(e.target.value)}
-                    style={{ 
-                      flex: 1,
-                      padding: '12px 16px',
-                      borderRadius: '14px',
-                      border: '2px solid #e5e7eb',
-                      fontSize: '0.95em',
-                      transition: 'all 0.2s',
-                      outline: 'none'
-                    }}
-                    onFocus={(e) => e.target.style.borderColor = '#667eea'}
-                    onBlur={(e) => e.target.style.borderColor = '#e5e7eb'}
+                    className="flisi-input flisi-input-time flisi-focus-start"
                   />
                 </div>
               </div>
 
-              <div style={{
-                background: 'white',
-                borderRadius: '20px',
-                padding: '20px',
-                boxShadow: '0 4px 6px -2px rgba(0,0,0,0.05)'
-              }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-                  <div style={{
-                    width: '40px',
-                    height: '40px',
-                    background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-                    borderRadius: '12px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: 'white',
-                    fontSize: '1.2em'
-                  }}>🏁</div>
+              {/* End Block */}
+              <div className="flisi-timeline-block">
+                <div className="flisi-timeline-block-header">
+                  <div className="flisi-icon-box icon-end">🏁</div>
                   <div>
-                    <div style={{ fontSize: '0.85em', color: '#6b7280', fontWeight: '500' }}>ФИНИШ</div>
-                    <div style={{ fontWeight: '600', color: '#1f2937' }}>Окончание ликвидации</div>
+                    <div className="flisi-label">ФИНИШ</div>
+                    <div className="flisi-label-title">Окончание ликвидации</div>
                   </div>
                 </div>
-                <div style={{ display: 'flex', gap: '12px' }}>
+                <div className="flisi-input-row">
                   <input 
                     type="date" 
                     value={endDate}
                     onChange={(e) => setEndDate(e.target.value)}
-                    style={{ 
-                      flex: 1,
-                      padding: '12px 16px',
-                      borderRadius: '14px',
-                      border: '2px solid #e5e7eb',
-                      fontSize: '0.95em',
-                      transition: 'all 0.2s',
-                      outline: 'none'
-                    }}
-                    onFocus={(e) => e.target.style.borderColor = '#f5576c'}
-                    onBlur={(e) => e.target.style.borderColor = '#e5e7eb'}
+                    className="flisi-input flisi-input-date flisi-focus-end"
                   />
                   <input 
                     type="time" 
                     value={endTime}
                     onChange={(e) => setEndTime(e.target.value)}
-                    style={{ 
-                      flex: 1,
-                      padding: '12px 16px',
-                      borderRadius: '14px',
-                      border: '2px solid #e5e7eb',
-                      fontSize: '0.95em',
-                      transition: 'all 0.2s',
-                      outline: 'none'
-                    }}
-                    onFocus={(e) => e.target.style.borderColor = '#f5576c'}
-                    onBlur={(e) => e.target.style.borderColor = '#e5e7eb'}
+                    className="flisi-input flisi-input-time flisi-focus-end"
                   />
                 </div>
               </div>
@@ -212,32 +103,16 @@ export const Flisi = () => {
           </div>
 
           {/* Processes Section */}
-          <div style={{ padding: '32px' }}>
-            <div style={{ marginBottom: '24px' }}>
-              <h2 style={{ fontSize: '1.5em', margin: '0 0 8px 0', color: '#1f2937' }}>
-                📋 Процессы ликвидации
-              </h2>
-              <p style={{ color: '#6b7280', margin: 0 }}>Заполните временные метки для каждого этапа работ</p>
+          <div className="flisi-processes-section">
+            <div className="flisi-section-header">
+              <h2 className="flisi-section-title">📋 Процессы ликвидации</h2>
+              <p className="flisi-section-desc">Заполните временные метки для каждого этапа работ</p>
             </div>
 
-            <div style={{
-              overflowX: 'auto',
-              borderRadius: '20px',
-              border: '1px solid #e5e7eb',
-              background: 'white'
-            }}>
-              <div style={{ minWidth: '800px' }}>
+            <div className="flisi-table-wrapper">
+              <div className="flisi-table-inner">
                 {/* Table Header */}
-                <div style={{
-                  display: 'grid',
-                  gridTemplateColumns: '1.5fr 0.8fr 0.8fr 2fr',
-                  background: '#f9fafb',
-                  borderBottom: '1px solid #e5e7eb',
-                  padding: '16px 20px',
-                  fontWeight: '600',
-                  color: '#374151',
-                  fontSize: '0.9em'
-                }}>
+                <div className="flisi-table-header">
                   <div>Процесс</div>
                   <div>Время начала</div>
                   <div>Время окончания</div>
@@ -246,83 +121,29 @@ export const Flisi = () => {
 
                 {/* Table Rows */}
                 {processes.map((process, index) => (
-                  <div key={process.id} style={{
-                    display: 'grid',
-                    gridTemplateColumns: '1.5fr 0.8fr 0.8fr 2fr',
-                    padding: '12px 20px',
-                    borderBottom: index < processes.length - 1 ? '1px solid #f3f4f6' : 'none',
-                    transition: 'background 0.2s',
-                    alignItems: 'center'
-                  }}>
-                    <div style={{
-                      fontWeight: '500',
-                      color: '#1f2937',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '10px'
-                    }}>
-                      <span style={{
-                        width: '28px',
-                        height: '28px',
-                        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                        borderRadius: '8px',
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        color: 'white',
-                        fontSize: '0.75em',
-                        fontWeight: 'bold'
-                      }}>{index + 1}</span>
+                  <div className="flisi-table-row" key={process.id}>
+                    <div className="flisi-process-name">
+                      <span className="flisi-process-number">{index + 1}</span>
                       {process.name}
                     </div>
                     <input 
                       type="time"
                       value={process.start}
                       onChange={(e) => handleProcessChange(process.id, 'start', e.target.value)}
-                      style={{ 
-                        padding: '10px 12px',
-                        borderRadius: '12px',
-                        border: '1.5px solid #e5e7eb',
-                        fontSize: '0.9em',
-                        transition: 'all 0.2s',
-                        outline: 'none',
-                        width: '95%'
-                      }}
-                      onFocus={(e) => e.target.style.borderColor = '#667eea'}
-                      onBlur={(e) => e.target.style.borderColor = '#e5e7eb'}
+                      className="flisi-input flisi-input-small flisi-focus-start"
                     />
                     <input 
                       type="time"
                       value={process.end}
                       onChange={(e) => handleProcessChange(process.id, 'end', e.target.value)}
-                      style={{ 
-                        padding: '10px 12px',
-                        borderRadius: '12px',
-                        border: '1.5px solid #e5e7eb',
-                        fontSize: '0.9em',
-                        transition: 'all 0.2s',
-                        outline: 'none',
-                        width: '95%'
-                      }}
-                      onFocus={(e) => e.target.style.borderColor = '#f5576c'}
-                      onBlur={(e) => e.target.style.borderColor = '#e5e7eb'}
+                      className="flisi-input flisi-input-small flisi-focus-end"
                     />
                     <input 
                       type="text"
                       placeholder="Детали процесса..."
                       value={process.description}
                       onChange={(e) => handleProcessChange(process.id, 'description', e.target.value)}
-                      style={{ 
-                        padding: '10px 12px',
-                        borderRadius: '12px',
-                        border: '1.5px solid #e5e7eb',
-                        fontSize: '0.9em',
-                        transition: 'all 0.2s',
-                        outline: 'none',
-                        width: '95%'
-                      }}
-                      onFocus={(e) => e.target.style.borderColor = '#10b981'}
-                      onBlur={(e) => e.target.style.borderColor = '#e5e7eb'}
+                      className="flisi-input flisi-input-small flisi-focus-desc"
                     />
                   </div>
                 ))}
@@ -334,146 +155,50 @@ export const Flisi = () => {
                 const newId = Math.max(...processes.map(p => p.id), 0) + 1;
                 setProcesses([...processes, { id: newId, name: 'Новый процесс', start: '', end: '', description: '' }]);
               }}
-              style={{
-                marginTop: '16px',
-                padding: '10px 20px',
-                background: 'white',
-                border: '2px dashed #d1d5db',
-                borderRadius: '14px',
-                color: '#6b7280',
-                fontWeight: '500',
-                cursor: 'pointer',
-                transition: 'all 0.2s',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px'
-              }}
-              onMouseEnter={(e) => { e.target.style.borderColor = '#667eea'; e.target.style.color = '#667eea'; }}
-              onMouseLeave={(e) => { e.target.style.borderColor = '#d1d5db'; e.target.style.color = '#6b7280'; }}
+              className="flisi-btn-add"
             >
               ➕ Добавить процесс
             </button>
           </div>
 
           {/* Delay Reason Section */}
-          <div style={{
-            padding: '32px',
-            background: '#f9fafb',
-            borderTop: '1px solid #e5e7eb',
-            borderBottom: '1px solid #e5e7eb'
-          }}>
-            <div style={{ maxWidth: '800px' }}>
-              <label style={{ 
-                display: 'block', 
-                fontWeight: '600', 
-                marginBottom: '8px',
-                color: '#374151'
-              }}>
-                ⚠️ Причина задержки
-              </label>
+          <div className="flisi-delay-section">
+            <div className="flisi-delay-inner">
+              <label className="flisi-delay-label">⚠️ Причина задержки</label>
               <textarea
                 value={delayReason}
                 onChange={(e) => setDelayReason(e.target.value)}
                 rows="3"
                 placeholder="Укажите причины, повлиявшие на сроки ликвидации..."
-                style={{ 
-                  width: '100%',
-                  padding: '14px 18px',
-                  borderRadius: '16px',
-                  border: '1.5px solid #e5e7eb',
-                  fontSize: '0.95em',
-                  resize: 'vertical',
-                  fontFamily: 'inherit',
-                  transition: 'all 0.2s',
-                  outline: 'none'
-                }}
-                onFocus={(e) => e.target.style.borderColor = '#f59e0b'}
-                onBlur={(e) => e.target.style.borderColor = '#e5e7eb'}
+                className="flisi-input flisi-textarea flisi-focus-delay"
               />
             </div>
           </div>
 
           {/* Actions & Gantt */}
-          <div style={{ padding: '32px' }}>
-            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '32px' }}>
+          <div className="flisi-actions-section">
+            <div className="flisi-save-wrapper">
               <button 
                 onClick={handleSave}
-                style={{
-                  padding: '14px 48px',
-                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                  border: 'none',
-                  borderRadius: '40px',
-                  color: 'white',
-                  fontWeight: '600',
-                  fontSize: '1em',
-                  cursor: 'pointer',
-                  transition: 'all 0.3s',
-                  boxShadow: '0 4px 15px rgba(102, 126, 234, 0.4)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '10px'
-                }}
-                onMouseEnter={(e) => { e.target.style.transform = 'translateY(-2px)'; e.target.style.boxShadow = '0 6px 20px rgba(102, 126, 234, 0.5)'; }}
-                onMouseLeave={(e) => { e.target.style.transform = 'translateY(0)'; e.target.style.boxShadow = '0 4px 15px rgba(102, 126, 234, 0.4)'; }}
+                className="flisi-btn-save"
               >
                 💾 Сохранить данные
               </button>
             </div>
 
             {/* Gantt Chart Placeholder */}
-            <div style={{
-              background: 'linear-gradient(135deg, #fef3c7 0%, #fde68a 100%)',
-              borderRadius: '24px',
-              padding: '60px 40px',
-              textAlign: 'center',
-              border: '2px dashed #f59e0b',
-              position: 'relative',
-              overflow: 'hidden'
-            }}>
-              <div style={{
-                position: 'absolute',
-                top: '-50%',
-                right: '-10%',
-                width: '300px',
-                height: '300px',
-                background: 'radial-gradient(circle, rgba(245,158,11,0.1) 0%, transparent 70%)',
-                borderRadius: '50%'
-              }}></div>
-              <div style={{ position: 'relative', zIndex: 1 }}>
-                <div style={{ fontSize: '4em', marginBottom: '16px' }}>📊</div>
-                <h3 style={{ fontSize: '1.5em', margin: '0 0 8px 0', color: '#92400e' }}>
-                  Диаграмма Ганта
-                </h3>
-                <p style={{ color: '#b45309', margin: 0 }}>
-                  Здесь будет отображаться визуализация процессов ликвидации
-                </p>
-                <p style={{ fontSize: '0.85em', color: '#d97706', marginTop: '12px' }}>
-                  на основе введенных временных меток
-                </p>
+            <div className="flisi-gantt">
+              <div className="flisi-gantt-bg-circle"></div>
+              <div className="flisi-gantt-content">
+                <div className="flisi-gantt-icon">📊</div>
+                <h3 className="flisi-gantt-title">Диаграмма Ганта</h3>
+                <p className="flisi-gantt-desc">Здесь будет отображаться визуализация процессов ликвидации</p>
+                <p className="flisi-gantt-subdesc">на основе введенных временных меток</p>
               </div>
             </div>
           </div>
         </div>
       </div>
-
-      <style>{`
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        div {
-          animation: fadeIn 0.5s ease-out;
-        }
-        input, textarea, button {
-          transition: all 0.2s ease;
-        }
-      `}</style>
     </div>
   );
 };

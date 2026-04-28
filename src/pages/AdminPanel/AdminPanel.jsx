@@ -1,10 +1,12 @@
+// src/pages/AdminPanel/AdminPanel.jsx
 import React from 'react';
+import './AdminPanel.css';
 
 export const AdminPanel = () => {
   const users = [
-    { id: 1, name: 'Иван Петров', role: 'Администратор' },
-    { id: 2, name: 'Мария Сидорова', role: 'Редактор' },
-    { id: 3, name: 'Алексей Смирнов', role: 'Пользователь' },
+    { id: 1, name: 'Иван Петров', role: 'Администратор', email: 'ivan.petrov@davs.ru', lastActive: 'Сегодня, 14:32' },
+    { id: 2, name: 'Мария Сидорова', role: 'Редактор', email: 'maria.sidorova@davs.ru', lastActive: 'Сегодня, 13:15' },
+    { id: 3, name: 'Алексей Смирнов', role: 'Пользователь', email: 'alexey.smirnov@davs.ru', lastActive: 'Вчера, 18:45' },
   ];
 
   const handleAddUser = () => {
@@ -19,280 +21,137 @@ export const AdminPanel = () => {
     console.log('Удалить пользователя:', userId);
   };
 
-  // Функция для получения цвета роли
-  const getRoleColor = (role) => {
+  const getRoleStyle = (role) => {
     switch(role) {
       case 'Администратор':
-        return { bg: '#e3f2fd', color: '#1976d2' };
+        return { className: 'role-badge role-admin', text: 'Администратор' };
       case 'Редактор':
-        return { bg: '#fff3e0', color: '#f57c00' };
+        return { className: 'role-badge role-editor', text: 'Редактор' };
       default:
-        return { bg: '#f5f5f5', color: '#757575' };
+        return { className: 'role-badge role-user', text: 'Пользователь' };
     }
   };
 
   return (
-    <div style={{
-      minHeight: '100vh',
-      backgroundColor: '#f5f7fa',
-      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
-    }}>
-      <div style={{
-        maxWidth: '1200px',
-        margin: '0 auto',
-        padding: '40px 24px'
-      }}>
+    <div className="admin-panel">
+      <div className="admin-container">
         {/* Header */}
-        <div style={{
-          marginBottom: '32px'
-        }}>
-          <h1 style={{
-            fontSize: '28px',
-            fontWeight: '600',
-            color: '#1a1f36',
-            margin: '0 0 8px 0',
-            letterSpacing: '-0.5px'
-          }}>
-            Администрирование
-          </h1>
-          <p style={{
-            fontSize: '14px',
-            color: '#6b7280',
-            margin: 0
-          }}>
-            Управление пользователями и их правами доступа
-          </p>
+        <div className="admin-header">
+          <div className="header-content">
+            <h1 className="admin-title">Администрирование</h1>
+            <p className="admin-subtitle">Управление пользователями и их правами доступа</p>
+          </div>
+          <div className="header-stats">
+            <div className="stat-card">
+              <div className="stat-value">{users.length}</div>
+              <div className="stat-label">Пользователей</div>
+            </div>
+            <div className="stat-card">
+              <div className="stat-value">3</div>
+              <div className="stat-label">Онлайн</div>
+            </div>
+          </div>
         </div>
 
         {/* Actions Bar */}
-        <div style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          marginBottom: '24px'
-        }}>
-          <div>
-            <span style={{
-              fontSize: '14px',
-              color: '#6b7280',
-              backgroundColor: '#f3f4f6',
-              padding: '4px 12px',
-              borderRadius: '12px'
-            }}>
-              Всего пользователей: {users.length}
-            </span>
+        <div className="actions-bar">
+          <div className="search-box">
+            <svg className="search-icon" width="18" height="18" viewBox="0 0 18 18" fill="none">
+              <circle cx="7.5" cy="7.5" r="6" stroke="#9ca3af" strokeWidth="1.5"/>
+              <path d="M12 12L16 16" stroke="#9ca3af" strokeWidth="1.5" strokeLinecap="round"/>
+            </svg>
+            <input 
+              type="text" 
+              placeholder="Поиск пользователей..."
+              className="search-input"
+            />
           </div>
           <button 
             onClick={handleAddUser}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-              backgroundColor: '#3b82f6',
-              color: 'white',
-              border: 'none',
-              padding: '10px 20px',
-              borderRadius: '8px',
-              fontSize: '14px',
-              fontWeight: '500',
-              cursor: 'pointer',
-              transition: 'all 0.2s ease',
-              boxShadow: '0 1px 2px rgba(0,0,0,0.05)'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = '#2563eb';
-              e.currentTarget.style.transform = 'translateY(-1px)';
-              e.currentTarget.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = '#3b82f6';
-              e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = '0 1px 2px rgba(0,0,0,0.05)';
-            }}
+            className="btn-primary btn-add"
           >
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M8 3v10M3 8h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+              <path d="M9 4.5V13.5M4.5 9H13.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
             </svg>
             Добавить пользователя
           </button>
         </div>
 
         {/* Table */}
-        <div style={{
-          backgroundColor: 'white',
-          borderRadius: '12px',
-          boxShadow: '0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06)',
-          overflow: 'hidden',
-          border: '1px solid #e5e7eb'
-        }}>
-          <div style={{ overflowX: 'auto' }}>
-            <table style={{
-              width: '100%',
-              borderCollapse: 'collapse'
-            }}>
-              <thead>
-                <tr style={{
-                  backgroundColor: '#f9fafb',
-                  borderBottom: '1px solid #e5e7eb'
-                }}>
-                  <th style={{
-                    padding: '16px 20px',
-                    textAlign: 'left',
-                    fontSize: '12px',
-                    fontWeight: '600',
-                    color: '#6b7280',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.5px'
-                  }}>
-                    Имя
-                  </th>
-                  <th style={{
-                    padding: '16px 20px',
-                    textAlign: 'left',
-                    fontSize: '12px',
-                    fontWeight: '600',
-                    color: '#6b7280',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.5px'
-                  }}>
-                    Роль
-                  </th>
-                  <th style={{
-                    padding: '16px 20px',
-                    textAlign: 'right',
-                    fontSize: '12px',
-                    fontWeight: '600',
-                    color: '#6b7280',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.5px'
-                  }}>
-                    Действия
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {users.map((user, index) => {
-                  const roleStyle = getRoleColor(user.role);
-                  return (
-                    <tr 
-                      key={user.id}
-                      style={{
-                        borderBottom: index !== users.length - 1 ? '1px solid #f3f4f6' : 'none',
-                        transition: 'background-color 0.15s ease'
-                      }}
-                      onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#fef9e6'}
-                      onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'white'}
-                    >
-                      <td style={{
-                        padding: '16px 20px',
-                        fontSize: '14px',
-                        fontWeight: '500',
-                        color: '#1f2937'
-                      }}>
-                        {user.name}
-                      </td>
-                      <td style={{
-                        padding: '16px 20px'
-                      }}>
-                        <span style={{
-                          display: 'inline-block',
-                          padding: '4px 12px',
-                          borderRadius: '20px',
-                          fontSize: '12px',
-                          fontWeight: '500',
-                          backgroundColor: roleStyle.bg,
-                          color: roleStyle.color
-                        }}>
-                          {user.role}
-                        </span>
-                      </td>
-                      <td style={{
-                        padding: '16px 20px',
-                        textAlign: 'right'
-                      }}>
-                        <div style={{
-                          display: 'flex',
-                          gap: '8px',
-                          justifyContent: 'flex-end'
-                        }}>
-                          <button 
-                            onClick={() => handleEdit(user.id)}
-                            style={{
-                              padding: '6px 12px',
-                              border: '1px solid #e5e7eb',
-                              borderRadius: '6px',
-                              cursor: 'pointer',
-                              fontSize: '13px',
-                              fontWeight: '500',
-                              backgroundColor: 'white',
-                              color: '#374151',
-                              transition: 'all 0.2s ease',
-                              display: 'inline-flex',
-                              alignItems: 'center',
-                              gap: '6px'
-                            }}
-                            onMouseEnter={(e) => {
-                              e.currentTarget.style.backgroundColor = '#f3f4f6';
-                              e.currentTarget.style.borderColor = '#d1d5db';
-                            }}
-                            onMouseLeave={(e) => {
-                              e.currentTarget.style.backgroundColor = 'white';
-                              e.currentTarget.style.borderColor = '#e5e7eb';
-                            }}
-                          >
-                            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path d="M10.5 1.5L12.5 3.5L3.5 12.5H1.5V10.5L10.5 1.5Z" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-                            </svg>
-                            Редактировать
-                          </button>
-                          <button 
-                            onClick={() => handleDelete(user.id)}
-                            style={{
-                              padding: '6px 12px',
-                              border: '1px solid #fee2e2',
-                              borderRadius: '6px',
-                              cursor: 'pointer',
-                              fontSize: '13px',
-                              fontWeight: '500',
-                              backgroundColor: 'white',
-                              color: '#dc2626',
-                              transition: 'all 0.2s ease',
-                              display: 'inline-flex',
-                              alignItems: 'center',
-                              gap: '6px'
-                            }}
-                            onMouseEnter={(e) => {
-                              e.currentTarget.style.backgroundColor = '#fee2e2';
-                              e.currentTarget.style.borderColor = '#fecaca';
-                            }}
-                            onMouseLeave={(e) => {
-                              e.currentTarget.style.backgroundColor = 'white';
-                              e.currentTarget.style.borderColor = '#fee2e2';
-                            }}
-                          >
-                            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path d="M1.5 3.5H12.5M5.5 1.5H8.5M5.5 5.5V10.5M8.5 5.5V10.5M11 3.5V11.5C11 12.1 10.6 12.5 10 12.5H4C3.4 12.5 3 12.1 3 11.5V3.5H11Z" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-                            </svg>
-                            Удалить
-                          </button>
+        <div className="table-container">
+          <table className="admin-table">
+            <thead>
+              <tr>
+                <th className="th-user">Пользователь</th>
+                <th className="th-role">Роль</th>
+                <th className="th-status">Статус</th>
+                <th className="th-actions">Действия</th>
+              </tr>
+            </thead>
+            <tbody>
+              {users.map((user) => {
+                const roleStyle = getRoleStyle(user.role);
+                return (
+                  <tr key={user.id} className="table-row">
+                    <td className="td-user">
+                      <div className="user-info">
+                        <div className="user-avatar">
+                          {user.name.split(' ').map(n => n[0]).join('')}
                         </div>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
+                        <div className="user-details">
+                          <div className="user-name">{user.name}</div>
+                          <div className="user-email">{user.email}</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="td-role">
+                      <span className={roleStyle.className}>
+                        {roleStyle.text}
+                      </span>
+                    </td>
+                    <td className="td-status">
+                      <div className="status-indicator">
+                        <span className="status-dot online"></span>
+                        <span className="status-text">{user.lastActive}</span>
+                      </div>
+                    </td>
+                    <td className="td-actions">
+                      <div className="action-buttons">
+                        <button 
+                          onClick={() => handleEdit(user.id)}
+                          className="btn-icon btn-edit"
+                          title="Редактировать"
+                        >
+                          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M11.5 2.5L13.5 4.5L4.5 13.5H2.5V11.5L11.5 2.5Z" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                        </button>
+                        <button 
+                          onClick={() => handleDelete(user.id)}
+                          className="btn-icon btn-delete"
+                          title="Удалить"
+                        >
+                          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M2.5 4H13.5M6.5 2H9.5M6.5 6V11.5M9.5 6V11.5M12 4V12.5C12 13.1 11.6 13.5 11 13.5H5C4.4 13.5 4 13.1 4 12.5V4H12Z" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
 
-        {/* Footer hint */}
-        <div style={{
-          marginTop: '16px',
-          textAlign: 'center',
-          fontSize: '12px',
-          color: '#9ca3af'
-        }}>
-          Нажмите на строку пользователя для быстрого просмотра информации
+        {/* Footer */}
+        <div className="admin-footer">
+          <div className="footer-info">
+            Показано {users.length} из {users.length} пользователей
+          </div>
+          <div className="footer-hint">
+            Нажмите на строку для подробной информации
+          </div>
         </div>
       </div>
     </div>

@@ -1,27 +1,34 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
+import Layout from './Layout/Layout';
+
 import { Routes, Route } from 'react-router-dom';
-import { TempPage } from './pages/TempPage/TempPage';
-import { Page42 } from './pages/Page42/Page42';
+import HomePage from './pages/HomePage/HomePage';
 import { IncidentCard } from './pages/IncidentCard/IncidentCard';
 import { CreateIncidentPage } from './pages/CreateIncidentPage/CreateIncidentPage';
 import { AdminPanel } from './pages/AdminPanel/AdminPanel';
 import { Ai_chat } from './pages/Ai_chat/Ai_chat';
 import { Flisi } from './pages/Flisi/flisi'
+import * as SDK from '@expressms/smartapp-sdk';
 
 function App() {
-
+  useEffect(() => {
+    SDK.ready();
+  }, []);
   return (
     <Routes>
-      <Route path="/temp" element={<TempPage />} />
-      <Route path="/incidentcard" element={<IncidentCard />} />
-      <Route path="/create" element={<CreateIncidentPage />} />
-      <Route path="/admin" element={<AdminPanel />} />
-      <Route path="/page42" element={<Page42 />} />
-      <Route path="/ai_chat" element={<Ai_chat />} />
-      <Route path="/Flisi" element={<Flisi />} />
+      <Route element={<Layout />}>
+        <Route path="/" element={<HomePage />} />
+
+        {/* Остальные страницы */}
+        <Route path="/incidentcard" element={<IncidentCard />} />
+        <Route path="/create" element={<CreateIncidentPage />} />
+        <Route path="/admin" element={<AdminPanel />} />
+        <Route path="/aichat" element={<Ai_chat />} />
+        <Route path="/Flisi" element={<Flisi />} />
+      </Route>
     </Routes>
-  );
+  ); 
 }
 
 export default App;
