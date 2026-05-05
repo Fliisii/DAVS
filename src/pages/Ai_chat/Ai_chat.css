@@ -326,17 +326,15 @@
   border: 1px solid #e1e5eb;
   border-radius: 14px;
   transition: all 0.2s ease;
-}
-
-.input-container:focus-within {
-  border-color: #4A90E2;
-  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
-  background: white;
+  /* Добавляем возможность сжиматься */
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .input-actions {
   display: flex;
   gap: 4px;
+  flex-shrink: 0; /* Чтобы кнопки не сжимались слишком сильно */
 }
 
 .btn-tool {
@@ -352,30 +350,18 @@
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;
-}
-
-.btn-tool:hover {
-  background: #e5e7eb;
-  color: #374151;
+  flex-shrink: 0; /* Запрещаем сжатие */
 }
 
 .chat-input {
-  flex: 1;
+  flex: 1; /* Поле ввода занимает всё свободное место */
+  min-width: 0; /* Важно для правильного сжатия */
   border: none;
   background: transparent;
   font-size: 14px;
   color: #1f2937;
   padding: 8px 4px;
   outline: none;
-}
-
-.chat-input::placeholder {
-  color: #9ca3af;
-}
-
-.chat-input:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
 }
 
 .btn-send {
@@ -392,30 +378,7 @@
   justify-content: center;
   transition: all 0.2s ease;
   box-shadow: 0 2px 8px rgba(74, 144, 226, 0.3);
-  flex-shrink: 0;
-}
-
-.btn-send:hover:not(.disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(74, 144, 226, 0.4);
-}
-
-.btn-send:active:not(.disabled) {
-  transform: translateY(0);
-}
-
-.btn-send.disabled {
-  background: #e5e7eb;
-  color: #9ca3af;
-  cursor: not-allowed;
-  box-shadow: none;
-}
-
-.input-hint {
-  font-size: 11px;
-  color: #9ca3af;
-  text-align: center;
-  margin: 10px 0 0;
+  flex-shrink: 0; /* Запрещаем сжатие кнопки отправки */
 }
 
 /* ==================== RESPONSIVE ==================== */
@@ -437,8 +400,16 @@
     font-size: 12px;
   }
   
+  /* Показываем кнопки и делаем их меньше */
   .header-actions {
-    display: none;
+    display: flex;
+    gap: 4px;
+  }
+  
+  .btn-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
   }
   
   .chat-messages {
@@ -456,19 +427,85 @@
   
   .input-container {
     padding: 6px 10px;
+    gap: 8px; /* Уменьшаем отступ между элементами */
   }
   
+  /* Делаем кнопки инструментов меньше */
   .btn-tool {
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
   }
   
+  /* Делаем кнопку отправки меньше */
   .btn-send {
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+  }
+  
+  .chat-input {
+    font-size: 14px;
+    padding: 6px 2px;
   }
   
   .input-hint {
     display: none;
+  }
+}
+
+/* Для очень маленьких экранов */
+@media (max-width: 400px) {
+  .chat-header {
+    padding: 10px 12px;
+  }
+  
+  .header-content {
+    gap: 8px;
+  }
+  
+  .bot-avatar {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .bot-icon {
+    font-size: 20px;
+  }
+  
+  .chat-title {
+    font-size: 14px;
+  }
+  
+  .chat-subtitle {
+    font-size: 11px;
+  }
+  
+  .btn-icon {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+  }
+  
+  .input-container {
+    gap: 6px; /* Ещё меньше отступ */
+    padding: 5px 8px;
+  }
+  
+  .btn-tool {
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+  }
+  
+  .btn-send {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
+  
+  .chat-input {
+    font-size: 13px;
+    padding: 5px 2px;
   }
 }
