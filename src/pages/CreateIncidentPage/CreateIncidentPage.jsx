@@ -1,5 +1,5 @@
 // src/pages/CreateIncidentPage/CreateIncidentPage.jsx
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import './CreateIncidentPage.css';
 
 const INCIDENT_TYPES = [
@@ -11,39 +11,68 @@ const INCIDENT_TYPES = [
   'Другое',
 ];
 
-const INITIAL = {
+const INITIAL_STATE = {
   type: 'Сход вагона',
   location: '',
   description: '',
-  photo: null,
 };
 
 export const CreateIncidentPage = () => {
-  const [values, setValues] = useState(INITIAL);
+  const [values, setValues] = useState(INITIAL_STATE);
+  const [photos, setPhotos] = useState([]);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const fileInputRef = useRef(null);
 
+  // Очистка URL-адресов при размонтировании для предотвращения утечек памяти
+  useEffect(() => {
+    return () => {
+      photos.forEach((photo) => URL.revokeObjectURL(photo.preview));
+    };
+  }, [photos]);
+
   const validate = () => {
-    const next = {};
-    if (!values.location.trim())    next.location    = 'Укажите место происшествия';
-    if (!values.description.trim()) next.description = 'Добавьте краткое описание';
-    setErrors(next);
-    return Object.keys(next).length === 0;
+    const nextErrors = {};
+    if (!values.location.trim()) nextErrors.location = 'Укажите место происшествия';
+    if (!values.description.trim()) nextErrors.description = 'Добавьте краткое описание';
+    
+    setErrors(nextErrors);
+    return Object.keys(nextErrors).length === 0;
   };
 
   const handleChange = (field) => (e) => {
     setValues((prev) => ({ ...prev, [field]: e.target.value }));
-    if (errors[field]) setErrors((prev) => ({ ...prev, [field]: undefined }));
+    if (errors[field]) {
+      setErrors((prev) => ({ ...prev, [field]: undefined }));
+    }
   };
 
   const handleFileChange = (e) => {
-    const file = e.target.files?.[0] ?? null;
-    setValues((prev) => ({ ...prev, photo: file }));
+    const files = Array.from(e.target.files || []);
+    const newPhotos = files.map((file) => ({
+      file,
+      preview: URL.createObjectURL(file),
+      id: Math.random().toString(36).substr(2, 9), // Уникальный ID для ключа React
+    }));
+    
+    setPhotos((prev) => [...prev, ...newPhotos]);
+    if (fileInputRef.current) fileInputRef.current.value = '';
+  };
+
+  const handleRemovePhoto = (id) => {
+    setPhotos((prev) => {
+      const photoToRemove = prev.find((p) => p.id === id);
+      if (photoToRemove) {
+        URL.revokeObjectURL(photoToRemove.preview);
+      }
+      return prev.filter((p) => p.id !== id);
+    });
   };
 
   const handleReset = () => {
-    setValues(INITIAL);
+    photos.forEach((photo) => URL.revokeObjectURL(photo.preview));
+    setValues(INITIAL_STATE);
+    setPhotos([]);
     setErrors({});
     if (fileInputRef.current) fileInputRef.current.value = '';
   };
@@ -51,12 +80,18 @@ export const CreateIncidentPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) return;
+    
     setLoading(true);
-    console.log('Создаём инцидент:', values);
+    
+    // Имитация отправки данных
     setTimeout(() => {
+      console.log('Отправка инцидента:', {
+        ...values,
+        photoCount: photos.length,
+      });
       setLoading(false);
-      // Можно добавить уведомление об успехе
-    }, 800);
+      // Здесь можно добавить редирект или toast-уведомление об успехе
+    }, 1000);
   };
 
   return (
@@ -64,182 +99,201 @@ export const CreateIncidentPage = () => {
       <div className="incident-container">
         
         {/* Header */}
-        <div className="page-header">
-          <div className="header-icon">
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-              <circle cx="16" cy="16" r="14" stroke="#4A90E2" strokeWidth="2" fill="rgba(74,144,226,0.1)"/>
-              <path d="M16 10V16L20 20" stroke="#4A90E2" strokeWidth="2" strokeLinecap="round"/>
+        <header className="page-header">
+          <div className="header-icon-wrapper">
+            <svg className="header-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+              <line x1="12" y1="9" x2="12" y2="13"></line>
+              <line x1="12" y1="17" x2="12.01" y2="17"></line>
             </svg>
           </div>
           <div className="header-content">
-            <h1 className="page-title">Создать происшествие</h1>
+            <h1 className="page-title">Регистрация происшествия</h1>
             <p className="page-subtitle">
-              Первичное сообщение. Позже можно дополнить планом и материалами.
+              Заполните первичные данные. Детали и дополнительные материалы можно будет добавить позже.
             </p>
           </div>
-        </div>
+        </header>
 
         {/* Form Card */}
         <div className="form-card">
           <form onSubmit={handleSubmit} noValidate>
             
-            {/* Тип происшествия */}
-            <div className="form-group">
-              <label className="form-label" htmlFor="incident-type">
-                Тип происшествия <span className="required">*</span>
-              </label>
-              <div className="select-wrapper">
-                <select
-                  id="incident-type"
-                  className="form-select"
-                  value={values.type}
-                  onChange={handleChange('type')}
-                >
-                  {INCIDENT_TYPES.map((t) => (
-                    <option key={t} value={t}>{t}</option>
-                  ))}
-                </select>
-                <svg className="select-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <path d="M4 6L8 10L12 6" stroke="#6b7280" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </div>
-            </div>
-
-            {/* Место */}
-            <div className="form-group">
-              <label className="form-label" htmlFor="incident-location">
-                Место происшествия <span className="required">*</span>
-              </label>
-              <input
-                id="incident-location"
-                className={`form-input ${errors.location ? 'input-error' : ''}`}
-                type="text"
-                placeholder='Например: перегон "Восточный", км 245+3'
-                value={values.location}
-                onChange={handleChange('location')}
-              />
-              {errors.location && (
-                <span className="error-message">
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                    <circle cx="7" cy="7" r="6" fill="#dc2626"/>
-                    <path d="M7 4V8M7 10V11" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+            <div className="form-grid">
+              {/* Тип происшествия */}
+              <div className="form-group">
+                <label className="form-label" htmlFor="incident-type">
+                  Тип происшествия <span className="required" aria-label="обязательное поле">*</span>
+                </label>
+                <div className="select-wrapper">
+                  <select
+                    id="incident-type"
+                    className="form-select"
+                    value={values.type}
+                    onChange={handleChange('type')}
+                  >
+                    {INCIDENT_TYPES.map((t) => (
+                      <option key={t} value={t}>{t}</option>
+                    ))}
+                  </select>
+                  <svg className="select-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="6 9 12 15 18 9"></polyline>
                   </svg>
-                  {errors.location}
-                </span>
-              )}
+                </div>
+              </div>
+
+              {/* Место */}
+              <div className="form-group">
+                <label className="form-label" htmlFor="incident-location">
+                  Место происшествия <span className="required" aria-label="обязательное поле">*</span>
+                </label>
+                <input
+                  id="incident-location"
+                  className={`form-input ${errors.location ? 'input-error' : ''}`}
+                  type="text"
+                  placeholder="Например: перегон «Восточный», км 245+3"
+                  value={values.location}
+                  onChange={handleChange('location')}
+                  aria-invalid={!!errors.location}
+                  aria-describedby={errors.location ? "location-error" : undefined}
+                />
+                {errors.location && (
+                  <span id="location-error" className="error-message">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <line x1="12" y1="8" x2="12" y2="12"></line>
+                      <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                    {errors.location}
+                  </span>
+                )}
+              </div>
             </div>
 
             {/* Описание */}
             <div className="form-group">
               <label className="form-label" htmlFor="incident-desc">
-                Краткое описание <span className="required">*</span>
+                Краткое описание <span className="required" aria-label="обязательное поле">*</span>
               </label>
               <textarea
                 id="incident-desc"
                 className={`form-textarea ${errors.description ? 'input-error' : ''}`}
-                placeholder="Что произошло, сколько вагонов, есть ли опасные грузы, пострадавшие и т.д."
+                placeholder="Опишите ситуацию: количество вагонов, наличие опасных грузов, пострадавших и т.д."
                 rows={5}
+                maxLength={500}
                 value={values.description}
                 onChange={handleChange('description')}
+                aria-invalid={!!errors.description}
+                aria-describedby={errors.description ? "desc-error" : "desc-counter"}
               />
-              <div className="char-counter">
-                {values.description.length}/500
-              </div>
-              {errors.description && (
-                <span className="error-message">
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                    <circle cx="7" cy="7" r="6" fill="#dc2626"/>
-                    <path d="M7 4V8M7 10V11" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
-                  </svg>
-                  {errors.description}
+              <div className="input-footer">
+                <span id="desc-counter" className="char-counter">
+                  {values.description.length}/500
                 </span>
-              )}
+                {errors.description && (
+                  <span id="desc-error" className="error-message">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <line x1="12" y1="8" x2="12" y2="12"></line>
+                      <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                    {errors.description}
+                  </span>
+                )}
+              </div>
             </div>
 
             {/* Фото / схема */}
             <div className="form-group">
-              <label className="form-label">Фото / схема</label>
-              <div className="upload-area">
+              <label className="form-label">Фотографии и схемы</label>
+              <div className="upload-zone">
                 <input
                   ref={fileInputRef}
                   type="file"
-                  accept="image/*"
+                  accept="image/png, image/jpeg, image/jpg"
                   id="incident-photo"
                   className="file-input"
+                  multiple
                   onChange={handleFileChange}
                 />
-                <label htmlFor="incident-photo" className="upload-label">
-                  <div className="upload-icon">
-                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                      <rect x="4" y="8" width="24" height="20" rx="4" stroke="#4A90E2" strokeWidth="2"/>
-                      <circle cx="12" cy="14" r="3" stroke="#4A90E2" strokeWidth="2"/>
-                      <path d="M20 18L24 22L28 18" stroke="#4A90E2" strokeWidth="2" strokeLinecap="round"/>
+                <label htmlFor="incident-photo" className="upload-trigger">
+                  <div className="upload-icon-wrapper">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                      <polyline points="17 8 12 3 7 8"></polyline>
+                      <line x1="12" y1="3" x2="12" y2="15"></line>
                     </svg>
                   </div>
-                  <span className="upload-text">
-                    {values.photo ? (
-                      <span className="file-selected">
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                          <path d="M4 8L7 11L12 5" stroke="#4A90E2" strokeWidth="2" strokeLinecap="round"/>
-                        </svg>
-                        {values.photo.name}
-                      </span>
-                    ) : (
-                      <>
-                        <strong>Нажмите для загрузки</strong>
-                        <br />
-                        <span className="upload-hint">PNG, JPG до 10 МБ</span>
-                      </>
-                    )}
-                  </span>
+                  <div className="upload-text">
+                    <span className="upload-main-text">Перетащите файлы сюда или <span className="upload-link">выберите на компьютере</span></span>
+                    <span className="upload-hint">PNG, JPG до 10 МБ (можно выбрать несколько)</span>
+                  </div>
                 </label>
-                {values.photo && (
-                  <button
-                    type="button"
-                    className="clear-file-btn"
-                    onClick={() => {
-                      setValues((prev) => ({ ...prev, photo: null }));
-                      if (fileInputRef.current) fileInputRef.current.value = '';
-                    }}
-                    title="Удалить файл"
-                  >
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                      <path d="M2 2L12 12M12 2L2 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-                    </svg>
-                  </button>
-                )}
               </div>
-              <p className="form-hint">
-                После создания происшествия можно добавить дополнительные материалы и сформировать оперативный план.
-              </p>
+
+              {/* Сетка предпросмотра */}
+              {photos.length > 0 && (
+                <div className="preview-grid">
+                  {photos.map((photo) => (
+                    <div key={photo.id} className="preview-card">
+                      <img 
+                        src={photo.preview} 
+                        alt="Предпросмотр" 
+                        className="preview-image" 
+                      />
+                      <button
+                        type="button"
+                        className="preview-remove-btn"
+                        onClick={() => handleRemovePhoto(photo.id)}
+                        title="Удалить файл"
+                        aria-label="Удалить файл"
+                      >
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <line x1="18" y1="6" x2="6" y2="18"></line>
+                          <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                      </button>
+                      <div className="preview-info">
+                        <span className="preview-filename" title={photo.file.name}>
+                          {photo.file.name}
+                        </span>
+                        <span className="preview-size">
+                          {(photo.file.size / 1024 / 1024).toFixed(2)} МБ
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
 
-            {/* Кнопки */}
+            {/* Кнопки действий */}
             <div className="form-actions">
               <button
                 type="button"
-                className="btn-secondary"
+                className="btn btn-secondary"
                 onClick={handleReset}
                 disabled={loading}
               >
-                Сбросить
+                Очистить форму
               </button>
               <button
                 type="submit"
-                className="btn-primary"
+                className="btn btn-primary"
                 disabled={loading}
               >
                 {loading ? (
                   <>
                     <span className="spinner"></span>
-                    Создание...
+                    Обработка...
                   </>
                 ) : (
                   <>
-                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                      <path d="M9 4.5V13.5M4.5 9H13.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <line x1="12" y1="5" x2="12" y2="19"></line>
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
                     </svg>
-                    Создать происшествие
+                    Зарегистрировать происшествие
                   </>
                 )}
               </button>
@@ -247,23 +301,6 @@ export const CreateIncidentPage = () => {
 
           </form>
         </div>
-
-        {/* Info Card */}
-        <div className="info-card">
-          <div className="info-header">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <circle cx="10" cy="10" r="8" stroke="#f59e0b" strokeWidth="2"/>
-              <path d="M10 6V10M10 13V14" stroke="#f59e0b" strokeWidth="2" strokeLinecap="round"/>
-            </svg>
-            <span>Важно</span>
-          </div>
-          <ul className="info-list">
-            <li>Все поля, отмеченные <span className="required">*</span>, обязательны для заполнения</li>
-            <li>После создания инцидент получит уникальный ID для отслеживания</li>
-            <li>Фотографии помогают быстрее оценить ситуацию и принять решение</li>
-          </ul>
-        </div>
-
       </div>
     </div>
   );
