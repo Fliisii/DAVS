@@ -7,7 +7,7 @@ import HomePage from './pages/HomePage/HomePage';
 import { IncidentCard } from './pages/IncidentCard/IncidentCard';
 import { CreateIncidentPage } from './pages/CreateIncidentPage/CreateIncidentPage';
 import { AdminPanel } from './pages/AdminPanel/AdminPanel';
-import { Ai_chat } from './pages/Ai_chat/Ai_chat';
+import { AiChat } from './pages/AiChat/AiChat.jsx';
 import { Flisi } from './pages/Flisi/flisi'
 import * as SDK from '@expressms/smartapp-sdk';
 
@@ -24,7 +24,7 @@ function App() {
         <Route path="/incidentcard" element={<IncidentCard />} />
         <Route path="/create" element={<CreateIncidentPage />} />
         <Route path="/admin" element={<AdminPanel />} />
-        <Route path="/aichat" element={<Ai_chat />} />
+        <Route path="/aichat" element={<AiChat />} />
         <Route path="/Flisi" element={<Flisi />} />
       </Route>
     </Routes>

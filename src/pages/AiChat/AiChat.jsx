@@ -1,8 +1,8 @@
 // src/pages/Ai_chat/Ai_chat.jsx
 import { useState, useRef, useEffect } from 'react';
-import './Ai_chat.css';
+import './AiChat.css';
 
-export const Ai_chat = () => {
+export const AiChat = () => {
   const [messages, setMessages] = useState([
     {
       id: 1,

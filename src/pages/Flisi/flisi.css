@@ -1,111 +1,159 @@
-/* ========== PAGE ========== */
+/* Flisi.css */
 .flisi-page {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
-  padding: 40px 20px;
-  font-family: 'Inter', 'Montserrat', sans-serif;
+  background-color: #f5f7fa;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  color: #1f2937;
 }
 
 .flisi-container {
-  max-width: 1400px;
+  max-width: 1000px;
   margin: 0 auto;
+  padding: 24px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-/* ========== HEADER ========== */
+/* ==================== HEADER (из Ai_chat.css) ==================== */
 .flisi-header {
-  text-align: center;
-  margin-bottom: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
+  color: white;
+  box-shadow: 0 2px 12px rgba(74, 144, 226, 0.3);
+  border-radius: 16px;
+  margin-bottom: 24px;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 14px;
 }
 
 .flisi-badge {
-  display: inline-block;
-  background: rgba(255, 255, 255, 0.2);
+  position: relative;
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   backdrop-filter: blur(10px);
-  border-radius: 100px;
-  padding: 8px 20px;
-  margin-bottom: 20px;
 }
 
-.flisi-badge span {
-  color: white;
-  font-weight: 500;
+.header-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
-.flisi-title {
-  color: white;
-  font-size: 2.5em;
-  margin: 0 0 10px 0;
+.chat-title {
+  font-size: 18px;
   font-weight: 700;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 0;
+  letter-spacing: -0.3px;
 }
 
-.flisi-subtitle {
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 1.1em;
+.chat-subtitle {
+  font-size: 13px;
+  opacity: 0.9;
+  margin: 0;
+  font-weight: 400;
+}
+
+/* ==================== MAIN CARD ==================== */
+.flisi-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.flisi-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.flisi-section-header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.flisi-section-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1f2937;
   margin: 0;
 }
 
-/* ========== CARD ========== */
-.flisi-card {
-  background: white;
-  border-radius: 32px;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-  overflow: hidden;
+.flisi-section-desc {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
 }
 
-/* ========== TIMELINE ========== */
-.flisi-timeline-section {
-  background: linear-gradient(135deg, #f8f9ff 0%, #f0f2ff 100%);
-  padding: 32px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-}
-
+/* ==================== TIMELINE INPUTS ==================== */
 .flisi-timeline-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: 1fr 1fr;
   gap: 24px;
 }
 
 .flisi-timeline-block {
-  background: white;
-  border-radius: 20px;
-  padding: 20px;
-  box-shadow: 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .flisi-timeline-block-header {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 16px;
 }
 
 .flisi-icon-box {
   width: 40px;
   height: 40px;
-  border-radius: 12px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
-  font-size: 1.2em;
+  font-size: 20px;
 }
 
 .icon-start {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  box-shadow: 0 2px 6px rgba(16, 185, 129, 0.3);
 }
 
 .icon-end {
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+  box-shadow: 0 2px 6px rgba(239, 68, 68, 0.3);
 }
 
 .flisi-label {
-  font-size: 0.85em;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
   color: #6b7280;
-  font-weight: 500;
 }
 
 .flisi-label-title {
+  font-size: 14px;
   font-weight: 600;
   color: #1f2937;
 }
@@ -115,96 +163,190 @@
   gap: 12px;
 }
 
-/* ========== INPUTS ========== */
 .flisi-input {
-  padding: 12px 16px;
-  border-radius: 14px;
-  border: 2px solid #e5e7eb;
-  font-size: 0.95em;
-  transition: all 0.2s;
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #e1e5eb;
+  border-radius: 10px;
+  font-size: 14px;
+  color: #1f2937;
+  background: #f8f9fa;
+  transition: all 0.2s ease;
   outline: none;
-  background: white;
+  box-sizing: border-box;
   font-family: inherit;
 }
 
-.flisi-input-small {
-  padding: 10px 12px;
-  font-size: 0.9em;
-  border-width: 1.5px;
-  width: 95%;
-}
-
-.flisi-input-date,
-.flisi-input-time {
-  flex: 1;
-}
-
-/* Focus colors */
-.flisi-focus-start:focus {
-  border-color: #667eea !important;
-}
-
-.flisi-focus-end:focus {
-  border-color: #f5576c !important;
-}
-
-.flisi-focus-desc:focus {
-  border-color: #10b981 !important;
-}
-
-.flisi-focus-delay:focus {
-  border-color: #f59e0b !important;
-}
-
-/* ========== PROCESSES ========== */
-.flisi-processes-section {
-  padding: 32px;
-}
-
-.flisi-section-header {
-  margin-bottom: 24px;
-}
-
-.flisi-section-title {
-  font-size: 1.5em;
-  margin: 0 0 8px 0;
-  color: #1f2937;
-}
-
-.flisi-section-desc {
-  color: #6b7280;
-  margin: 0;
-}
-
-/* ========== TABLE ========== */
-.flisi-table-wrapper {
-  overflow-x: auto;
-  border-radius: 20px;
-  border: 1px solid #e5e7eb;
+.flisi-input:focus {
+  border-color: #4A90E2;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
   background: white;
 }
 
-.flisi-table-inner {
-  min-width: 800px;
+.flisi-focus-start:focus {
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+.flisi-focus-end:focus {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.flisi-textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* ==================== GANTT CHART ==================== */
+.gantt-chart {
+  border: 1px solid #e1e5eb;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fafbfc;
+}
+
+.gantt-header {
+  display: flex;
+  border-bottom: 1px solid #e1e5eb;
+  background: #f3f4f6;
+}
+
+.gantt-label-col {
+  width: 200px;
+  padding: 12px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+  border-right: 1px solid #e1e5eb;
+  flex-shrink: 0;
+}
+
+.gantt-timeline-col {
+  flex: 1;
+  display: flex;
+  position: relative;
+}
+
+.gantt-time-marker {
+  flex: 1;
+  text-align: center;
+  font-size: 12px;
+  color: #6b7280;
+  border-right: 1px dashed #d1d5db;
+  padding: 12px 0;
+}
+
+.gantt-time-marker:last-child {
+  border-right: none;
+}
+
+.gantt-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.gantt-row {
+  display: flex;
+  border-bottom: 1px solid #f3f4f6;
+  min-height: 48px;
+  align-items: center;
+  transition: background 0.2s ease;
+}
+
+.gantt-row:hover {
+  background: #f8f9fa;
+}
+
+.gantt-row:last-child {
+  border-bottom: none;
+}
+
+.gantt-label {
+  width: 200px;
+  padding: 0 16px;
+  font-size: 14px;
+  color: #1f2937;
+  border-right: 1px solid #e1e5eb;
+  flex-shrink: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.gantt-track {
+  flex: 1;
+  position: relative;
+  height: 100%;
+  padding: 8px 0;
+}
+
+.gantt-bar {
+  position: absolute;
+  top: 8px;
+  bottom: 8px;
+  background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(74, 144, 226, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.gantt-bar:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(74, 144, 226, 0.4);
+  z-index: 10;
+}
+
+.gantt-bar-text {
+  font-size: 11px;
+  color: white;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 8px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.gantt-bar:hover .gantt-bar-text {
+  opacity: 1;
+}
+
+/* ==================== TABLE ==================== */
+.flisi-table-wrapper {
+  border: 1px solid #e1e5eb;
+  border-radius: 12px;
+  overflow: hidden;
 }
 
 .flisi-table-header {
   display: grid;
-  grid-template-columns: 1.5fr 0.8fr 0.8fr 2fr;
-  background: #f9fafb;
-  border-bottom: 1px solid #e5e7eb;
-  padding: 16px 20px;
+  grid-template-columns: 2fr 1fr 1fr 2fr 40px;
+  gap: 16px;
+  padding: 12px 16px;
+  background: #f3f4f6;
+  font-size: 13px;
   font-weight: 600;
   color: #374151;
-  font-size: 0.9em;
+  border-bottom: 1px solid #e1e5eb;
+}
+
+.flisi-table-body {
+  display: flex;
+  flex-direction: column;
 }
 
 .flisi-table-row {
   display: grid;
-  grid-template-columns: 1.5fr 0.8fr 0.8fr 2fr;
-  padding: 12px 20px;
+  grid-template-columns: 2fr 1fr 1fr 2fr 40px;
+  gap: 16px;
+  padding: 12px 16px;
   border-bottom: 1px solid #f3f4f6;
-  transition: background 0.2s;
   align-items: center;
 }
 
@@ -213,179 +355,335 @@
 }
 
 .flisi-process-name {
-  font-weight: 500;
-  color: #1f2937;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
 .flisi-process-number {
   width: 28px;
   height: 28px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   border-radius: 8px;
-  display: inline-flex;
+  background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
+  color: white;
+  display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
-  font-size: 0.75em;
-  font-weight: bold;
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
 }
 
-/* ========== ADD BUTTON ========== */
-.flisi-btn-add {
-  margin-top: 16px;
-  padding: 10px 20px;
-  background: white;
-  border: 2px dashed #d1d5db;
-  border-radius: 14px;
-  color: #6b7280;
+.flisi-input-name {
+  border: none;
+  background: transparent;
+  padding: 4px 0;
   font-weight: 500;
+}
+
+.flisi-input-name:focus {
+  box-shadow: none;
+  border-bottom: 2px solid #4A90E2;
+  border-radius: 0;
+  background: transparent;
+}
+
+/* Кнопка удаления (стиль из Ai_chat.css .btn-action) */
+.flisi-btn-delete {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid #fee2e2;
+  background: #fef2f2;
+  color: #ef4444;
+  font-size: 16px;
   cursor: pointer;
-  transition: all 0.2s;
-  display: inline-flex;
+  display: flex;
   align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.flisi-btn-delete:hover {
+  background: #fee2e2;
+  border-color: #fecaca;
+  transform: translateY(-1px);
+}
+
+/* ==================== BUTTONS ==================== */
+.flisi-btn-add {
+  width: 100%;
+  padding: 12px;
+  border: 2px dashed #d1d5db;
+  border-radius: 10px;
+  background: transparent;
+  color: #6b7280;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 8px;
-  font-size: 0.95em;
-  font-family: inherit;
 }
 
 .flisi-btn-add:hover {
-  border-color: #667eea;
-  color: #667eea;
+  border-color: #4A90E2;
+  color: #4A90E2;
+  background: rgba(74, 144, 226, 0.05);
 }
 
-/* ========== DELAY SECTION ========== */
-.flisi-delay-section {
-  padding: 32px;
-  background: #f9fafb;
-  border-top: 1px solid #e5e7eb;
-  border-bottom: 1px solid #e5e7eb;
-}
-
-.flisi-delay-inner {
-  max-width: 800px;
-}
-
-.flisi-delay-label {
-  display: block;
-  font-weight: 600;
-  margin-bottom: 8px;
-  color: #374151;
-}
-
-.flisi-textarea {
-  width: 100%;
-  padding: 14px 18px;
-  border-radius: 16px;
-  border: 1.5px solid #e5e7eb;
-  font-size: 0.95em;
-  resize: vertical;
-  box-sizing: border-box;
-}
-
-/* ========== ACTIONS ========== */
 .flisi-actions-section {
-  padding: 32px;
-}
-
-.flisi-save-wrapper {
   display: flex;
-  justify-content: center;
-  margin-bottom: 32px;
+  justify-content: flex-end;
+  padding-top: 16px;
+  border-top: 1px solid #e1e5eb;
 }
 
 .flisi-btn-save {
-  padding: 14px 48px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 14px 28px;
   border: none;
-  border-radius: 40px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
   color: white;
+  font-size: 15px;
   font-weight: 600;
-  font-size: 1em;
   cursor: pointer;
-  transition: all 0.3s;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-family: inherit;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(74, 144, 226, 0.3);
 }
 
 .flisi-btn-save:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+  box-shadow: 0 4px 12px rgba(74, 144, 226, 0.4);
 }
 
-/* ========== GANTT ========== */
-.flisi-gantt {
-  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-  border-radius: 24px;
-  padding: 60px 40px;
-  text-align: center;
-  border: 2px dashed #f59e0b;
-  position: relative;
-  overflow: hidden;
-}
-
-.flisi-gantt-bg-circle {
-  position: absolute;
-  top: -50%;
-  right: -10%;
-  width: 300px;
-  height: 300px;
-  background: radial-gradient(circle, rgba(245, 158, 11, 0.1) 0%, transparent 70%);
-  border-radius: 50%;
-}
-
-.flisi-gantt-content {
-  position: relative;
-  z-index: 1;
-}
-
-.flisi-gantt-icon {
-  font-size: 4em;
-  margin-bottom: 16px;
-}
-
-.flisi-gantt-title {
-  font-size: 1.5em;
-  margin: 0 0 8px 0;
-  color: #92400e;
-}
-
-.flisi-gantt-desc {
-  color: #b45309;
-  margin: 0;
-}
-
-.flisi-gantt-subdesc {
-  font-size: 0.85em;
-  color: #d97706;
-  margin-top: 12px;
-}
-
-/* ========== ANIMATION ========== */
-@keyframes flisiFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 768px) {
+  .flisi-container {
+    padding: 16px;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  
+  .flisi-card {
+    padding: 20px;
+  }
+
+  .flisi-timeline-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .flisi-table-header {
+    display: none;
+  }
+
+  .flisi-table-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 16px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    border: 1px solid #e1e5eb;
+  }
+
+  .flisi-table-row:last-child {
+    margin-bottom: 0;
+  }
+
+  .flisi-btn-delete {
+    width: 100%;
+    margin-top: 8px;
+  }
+
+  .gantt-label-col, .gantt-label {
+    width: 120px;
+    font-size: 12px;
   }
 }
-
-.flisi-container {
-  animation: flisiFadeIn 0.5s ease-out;
-}
-
-/* ========== GLOBAL TRANSITIONS ========== */
-.flisi-input,
-.flisi-textarea,
-.flisi-btn-add,
-.flisi-btn-save {
+/* ==================== GANTT CALCULATE BUTTON ==================== */
+.flisi-btn-calculate {
+  width: 100%;
+  padding: 14px 24px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
+}
+
+.flisi-btn-calculate:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+}
+
+.flisi-btn-calculate:active {
+  transform: translateY(0);
+}
+
+/* ==================== GANTT PLACEHOLDER ==================== */
+.flisi-gantt-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+  border: 2px dashed #d1d5db;
+  border-radius: 12px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.flisi-gantt-placeholder-icon {
+  font-size: 48px;
+  margin-bottom: 12px;
+  opacity: 0.6;
+}
+
+.flisi-gantt-placeholder-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #374151;
+  margin: 0 0 8px 0;
+}
+
+.flisi-gantt-placeholder-desc {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+  max-width: 400px;
+  line-height: 1.5;
+}
+
+/* ==================== GANTT CHART (если еще нет в CSS) ==================== */
+.gantt-chart {
+  border: 1px solid #e1e5eb;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fafbfc;
+}
+
+.gantt-header {
+  display: flex;
+  border-bottom: 1px solid #e1e5eb;
+  background: #f3f4f6;
+}
+
+.gantt-label-col {
+  width: 200px;
+  padding: 12px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+  border-right: 1px solid #e1e5eb;
+  flex-shrink: 0;
+}
+
+.gantt-timeline-col {
+  flex: 1;
+  display: flex;
+}
+
+.gantt-time-marker {
+  flex: 1;
+  text-align: center;
+  font-size: 12px;
+  color: #6b7280;
+  border-right: 1px dashed #d1d5db;
+  padding: 12px 0;
+}
+
+.gantt-time-marker:last-child {
+  border-right: none;
+}
+
+.gantt-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.gantt-row {
+  display: flex;
+  border-bottom: 1px solid #f3f4f6;
+  min-height: 48px;
+  align-items: center;
+  transition: background 0.2s ease;
+}
+
+.gantt-row:hover {
+  background: #f8f9fa;
+}
+
+.gantt-row:last-child {
+  border-bottom: none;
+}
+
+.gantt-label {
+  width: 200px;
+  padding: 0 16px;
+  font-size: 14px;
+  color: #1f2937;
+  border-right: 1px solid #e1e5eb;
+  flex-shrink: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.gantt-track {
+  flex: 1;
+  position: relative;
+  height: 40px; /* ← фиксированная высота вместо 100% */
+  padding: 0;
+}
+
+.gantt-bar {
+  position: absolute;
+  top: 6px;
+  bottom: 6px;
+  background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(74, 144, 226, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  min-width: 2px; /* ← минимальная ширина, чтобы даже короткие процессы были видны */
+}
+
+.gantt-bar:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(74, 144, 226, 0.4);
+  z-index: 10;
+}
+
+.gantt-bar-text {
+  font-size: 11px;
+  color: white;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 8px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.gantt-bar:hover .gantt-bar-text {
+  opacity: 1;
 }
