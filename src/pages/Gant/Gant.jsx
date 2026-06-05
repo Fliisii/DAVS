@@ -1,28 +1,27 @@
-import React, { useState } from 'react';
-import './Flisi.css';
+import React, { useState, useMemo } from 'react';
+import './Gant.css';
 
-export const Flisi = () => {
+export const Gant = () => {
   const [startDate, setStartDate] = useState('');
   const [startTime, setStartTime] = useState('');
   const [endDate, setEndDate] = useState('');
   const [endTime, setEndTime] = useState('');
   const [delayReason, setDelayReason] = useState('');
-  const [showGantt, setShowGantt] = useState(false); // ← новое состояние
+  const [showGantt, setShowGantt] = useState(false);
 
   const [processes, setProcesses] = useState([
-    { id: 1, name: 'Оценка обстановки', start: '', end: '', description: '' },
-    { id: 2, name: 'Ограждение места работ', start: '', end: '', description: '' },
-    { id: 3, name: 'Подготовка техники', start: '', end: '', description: '' },
-    { id: 4, name: 'Подъем вагона', start: '', end: '', description: '' },
-    { id: 5, name: 'Уборка тележки', start: '', end: '', description: '' },
-    { id: 6, name: 'Восстановление пути', start: '', end: '', description: '' },
+    { id: 1, name: 'Оценка обстановки', start: '09:00', end: '09:30', description: '', multiDay: false },
+    { id: 2, name: 'Ограждение места работ', start: '09:30', end: '10:15', description: '', multiDay: false },
+    { id: 3, name: 'Подготовка техники', start: '22:00', end: '01:30', description: 'Ночная смена', multiDay: true },
+    { id: 4, name: 'Подъем вагона', start: '23:00', end: '02:00', description: '', multiDay: true },
+    { id: 5, name: 'Уборка тележки', start: '13:00', end: '14:50', description: '', multiDay: false },
+    { id: 6, name: 'Восстановление пути', start: '14:50', end: '16:30', description: '', multiDay: false },
   ]);
 
   const handleProcessChange = (id, field, value) => {
     setProcesses(processes.map(process =>
       process.id === id ? { ...process, [field]: value } : process
     ));
-    // Сбрасываем диаграмму при изменении данных, чтобы пользователь пересчитал
     if (showGantt) setShowGantt(false);
   };
 
@@ -45,14 +44,37 @@ export const Flisi = () => {
     alert('✅ Данные успешно сохранены! Проверьте консоль (F12)');
   };
 
-  // Вспомогательная функция для перевода "ЧЧ:ММ" в минуты от начала суток
   const timeToMinutes = (timeStr) => {
     if (!timeStr || !timeStr.includes(':')) return 0;
     const [hours, minutes] = timeStr.split(':').map(Number);
     return (hours || 0) * 60 + (minutes || 0);
   };
 
-  // ← Новая функция расчета диаграммы
+  // Динамический расчёт шкалы времени с флагами дней
+  const { totalMinutes, timeMarkers } = useMemo(() => {
+    const maxEndMins = processes.reduce((max, p) => {
+      if (!p.start || !p.end) return max;
+      let end = timeToMinutes(p.end);
+      if (p.multiDay) end += 1440;
+      return Math.max(max, end);
+    }, 1440);
+
+    const total = Math.max(1440, Math.ceil(maxEndMins / 240) * 240);
+    
+    const markers = [];
+    for (let m = 0; m <= total; m += 240) {
+      const hours = Math.floor(m / 60);
+      const mins = m % 60;
+      const isNewDay = m % 1440 === 0; // Каждые 24 часа = новый день
+      markers.push({
+        time: `${String(hours).padStart(2, '0')}:${String(mins).padStart(2, '0')}`,
+        isNewDay
+      });
+    }
+
+    return { totalMinutes: total, timeMarkers: markers };
+  }, [processes]);
+
   const handleCalculateGantt = () => {
     const filledProcesses = processes.filter(p => p.start && p.end);
 
@@ -63,13 +85,14 @@ export const Flisi = () => {
 
     const invalidProcesses = filledProcesses.filter(p => {
       const startMins = timeToMinutes(p.start);
-      const endMins = timeToMinutes(p.end);
+      let endMins = timeToMinutes(p.end);
+      if (p.multiDay) endMins += 1440;
       return endMins <= startMins;
     });
 
     if (invalidProcesses.length > 0) {
       const names = invalidProcesses.map(p => p.name).join(', ');
-      alert(`⚠️ У процессов "${names}" время окончания должно быть позже времени начала!`);
+      alert(`⚠️ У процессов "${names}" время окончания должно быть позже времени начала! Включите флаг "Работы более одного дня", если работы переходят через полночь.`);
       return;
     }
 
@@ -94,7 +117,7 @@ export const Flisi = () => {
 
         {/* Main Card */}
         <div className="flisi-card">
-
+          
           {/* Timeline Inputs */}
           <div className="flisi-section">
             <h2 className="flisi-section-title">🚀 Временные рамки ликвидации</h2>
@@ -108,14 +131,14 @@ export const Flisi = () => {
                   </div>
                 </div>
                 <div className="flisi-input-row">
-                  <input
-                    type="date"
+                  <input 
+                    type="date" 
                     value={startDate}
                     onChange={(e) => setStartDate(e.target.value)}
                     className="flisi-input flisi-focus-start"
                   />
-                  <input
-                    type="time"
+                  <input 
+                    type="time" 
                     value={startTime}
                     onChange={(e) => setStartTime(e.target.value)}
                     className="flisi-input flisi-focus-start"
@@ -132,14 +155,14 @@ export const Flisi = () => {
                   </div>
                 </div>
                 <div className="flisi-input-row">
-                  <input
-                    type="date"
+                  <input 
+                    type="date" 
                     value={endDate}
                     onChange={(e) => setEndDate(e.target.value)}
                     className="flisi-input flisi-focus-end"
                   />
-                  <input
-                    type="time"
+                  <input 
+                    type="time" 
                     value={endTime}
                     onChange={(e) => setEndTime(e.target.value)}
                     className="flisi-input flisi-focus-end"
@@ -161,6 +184,7 @@ export const Flisi = () => {
                 <div>Начало</div>
                 <div>Окончание</div>
                 <div>Описание</div>
+                <div className="flisi-table-header-multiday">Мульт.</div>
                 <div style={{ width: '40px' }}></div>
               </div>
               <div className="flisi-table-body">
@@ -168,47 +192,56 @@ export const Flisi = () => {
                   <div className="flisi-table-row" key={process.id}>
                     <div className="flisi-process-name">
                       <span className="flisi-process-number">{index + 1}</span>
-                      <input
+                      <input 
                         type="text"
                         value={process.name}
                         onChange={(e) => handleProcessChange(process.id, 'name', e.target.value)}
                         className="flisi-input flisi-input-name"
                       />
                     </div>
-                    <input
+                    <input 
                       type="time"
                       value={process.start}
                       onChange={(e) => handleProcessChange(process.id, 'start', e.target.value)}
                       className="flisi-input flisi-focus-start"
                     />
-                    <input
+                    <input 
                       type="time"
                       value={process.end}
                       onChange={(e) => handleProcessChange(process.id, 'end', e.target.value)}
                       className="flisi-input flisi-focus-end"
                     />
-                    <input
+                    <input 
                       type="text"
                       placeholder="Детали процесса..."
                       value={process.description}
                       onChange={(e) => handleProcessChange(process.id, 'description', e.target.value)}
                       className="flisi-input"
                     />
-                    <button
+                    <label className="flisi-multiday-label" title="Работы переходят через полночь">
+                      <input 
+                        type="checkbox"
+                        checked={process.multiDay || false}
+                        onChange={(e) => handleProcessChange(process.id, 'multiDay', e.target.checked)}
+                        className="flisi-multiday-checkbox"
+                      />
+                      <span className="flisi-multiday-text">+1д</span>
+                    </label>
+                    <button 
                       onClick={() => handleDeleteProcess(process.id)}
                       className="flisi-btn-delete"
                       title="Удалить процесс"
                     >
-                      🗑️
+                      ️
                     </button>
                   </div>
                 ))}
               </div>
             </div>
-            <button
+            <button 
               onClick={() => {
                 const newId = Math.max(...processes.map(p => p.id), 0) + 1;
-                setProcesses([...processes, { id: newId, name: 'Новый процесс', start: '', end: '', description: '' }]);
+                setProcesses([...processes, { id: newId, name: 'Новый процесс', start: '', end: '', description: '', multiDay: false }]);
                 if (showGantt) setShowGantt(false);
               }}
               className="flisi-btn-add"
@@ -235,12 +268,11 @@ export const Flisi = () => {
               <h2 className="flisi-section-title">📊 Диаграмма Ганта</h2>
               <p className="flisi-section-desc">
                 {showGantt
-                  ? 'Визуализация процессов на основе введенных временных меток'
+                  ? `Визуализация процессов (шкала: ${totalMinutes / 60} часов) • 🟢 начало • 🔴 конец`
                   : 'Заполните данные выше и нажмите кнопку для построения диаграммы'}
               </p>
             </div>
 
-            {/* Кнопка расчета */}
             <button
               onClick={handleCalculateGantt}
               className="flisi-btn-calculate"
@@ -248,7 +280,6 @@ export const Flisi = () => {
               {showGantt ? '🔄 Пересчитать диаграмму' : '📊 Рассчитать диаграмму'}
             </button>
 
-            {/* Условный рендер: заглушка или диаграмма */}
             {!showGantt ? (
               <div className="flisi-gantt-placeholder">
                 <div className="flisi-gantt-placeholder-icon">📊</div>
@@ -262,31 +293,50 @@ export const Flisi = () => {
                 <div className="gantt-header">
                   <div className="gantt-label-col">Процесс</div>
                   <div className="gantt-timeline-col">
-                    {['00:00', '04:00', '08:00', '12:00', '16:00', '20:00', '24:00'].map(time => (
-                      <div key={time} className="gantt-time-marker">{time}</div>
+                    {timeMarkers.map((marker, idx) => (
+                      <div 
+                        key={idx} 
+                        className={`gantt-time-marker ${marker.isNewDay ? 'gantt-time-marker-day' : ''}`}
+                      >
+                        {marker.time}
+                      </div>
                     ))}
                   </div>
                 </div>
                 <div className="gantt-body">
                   {processes.map((process) => {
                     const startMins = timeToMinutes(process.start);
-                    const endMins = timeToMinutes(process.end);
+                    let endMins = timeToMinutes(process.end);
+                    if (process.multiDay) endMins += 1440;
+                    
                     const isValid = process.start && process.end && endMins > startMins;
+                    
+                    const left = isValid ? (startMins / totalMinutes) * 100 : 0;
+                    const width = isValid ? Math.max(((endMins - startMins) / totalMinutes) * 100, 1.5) : 0;
+                    
+                    const timeText = process.multiDay 
+                      ? `${process.start} → ${process.end} (+1д)` 
+                      : `${process.start} – ${process.end}`;
 
-                    const left = isValid ? (startMins / 1440) * 100 : 0;
-                    const width = isValid ? Math.max(((endMins - startMins) / 1440) * 100, 1.5) : 0;
+                    // Показывать текст только если ширина >= 5% (примерно 50px на 1000px)
+                    const showText = width >= 5;
 
                     return (
-                      <div key={process.id} className="gantt-row">
-                        <div className="gantt-label" title={process.name}>{process.name}</div>
+                      <div key={process.id} className={`gantt-row ${process.multiDay ? 'gantt-row-multiday' : ''}`}>
+                        <div className="gantt-label" title={process.name}>
+                          {process.name}
+                          {process.multiDay && <span className="gantt-multiday-badge">+1д</span>}
+                        </div>
                         <div className="gantt-track">
                           {isValid && (
-                            <div
-                              className="gantt-bar"
+                            <div 
+                              className={`gantt-bar ${!showText ? 'gantt-bar-small' : ''}`}
                               style={{ left: `${left}%`, width: `${width}%` }}
-                              title={`${process.name}: ${process.start} – ${process.end}`}
+                              title={`${process.name}: ${timeText}`}
                             >
-                              <span className="gantt-bar-text">{process.start} – {process.end}</span>
+                              {showText && (
+                                <span className="gantt-bar-text">{timeText}</span>
+                              )}
                             </div>
                           )}
                         </div>

@@ -687,3 +687,237 @@
 .gantt-bar:hover .gantt-bar-text {
   opacity: 1;
 }
+/* ==================== MULTIDAY CHECKBOX ==================== */
+.flisi-table-header-multiday {
+  text-align: center;
+  font-size: 12px;
+}
+
+.flisi-multiday-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+}
+
+.flisi-multiday-label:hover {
+  background: rgba(139, 92, 246, 0.08);
+}
+
+.flisi-multiday-checkbox {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color: #8b5cf6;
+}
+
+.flisi-multiday-text {
+  font-size: 11px;
+  font-weight: 700;
+  color: #8b5cf6;
+  background: rgba(139, 92, 246, 0.1);
+  padding: 2px 6px;
+  border-radius: 4px;
+  user-select: none;
+}
+
+/* ==================== GANTT MULTIDAY ROW ==================== */
+.gantt-row-multiday {
+  background: linear-gradient(90deg, rgba(139, 92, 246, 0.03) 0%, rgba(139, 92, 246, 0.06) 100%);
+}
+
+.gantt-multiday-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  color: #8b5cf6;
+  background: rgba(139, 92, 246, 0.12);
+  padding: 1px 6px;
+  border-radius: 4px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+/* ==================== GANTT BAR MARKERS (начало/конец) ==================== */
+.gantt-bar {
+  position: absolute;
+  top: 6px;
+  bottom: 6px;
+  background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(74, 144, 226, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  min-width: 2px;
+}
+
+/* Маркер НАЧАЛА (зелёный кружок слева) */
+.gantt-bar::before {
+  content: '';
+  position: absolute;
+  left: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  border: 2px solid white;
+  box-shadow: 0 1px 4px rgba(16, 185, 129, 0.4);
+  z-index: 2;
+}
+
+/* Маркер КОНЦА (красный кружок справа) */
+.gantt-bar::after {
+  content: '';
+  position: absolute;
+  right: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  border: 2px solid white;
+  box-shadow: 0 1px 4px rgba(239, 68, 68, 0.4);
+  z-index: 2;
+}
+
+.gantt-bar:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(74, 144, 226, 0.4);
+  z-index: 10;
+}
+
+.gantt-bar-text {
+  font-size: 11px;
+  color: white;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 10px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.gantt-bar:hover .gantt-bar-text {
+  opacity: 1;
+}
+
+/* ==================== TABLE COLUMN ADJUSTMENT ==================== */
+.flisi-table-header {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 2fr 60px 40px;
+  gap: 16px;
+  padding: 12px 16px;
+  background: #f3f4f6;
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+  border-bottom: 1px solid #e1e5eb;
+}
+
+.flisi-table-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 2fr 60px 40px;
+  gap: 16px;
+  padding: 12px 16px;
+  border-bottom: 1px solid #f3f4f6;
+  align-items: center;
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 768px) {
+  .flisi-table-header {
+    display: none;
+  }
+
+  .flisi-table-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 16px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    border: 1px solid #e1e5eb;
+  }
+
+  .flisi-multiday-label {
+    justify-content: flex-start;
+  }
+
+  .flisi-btn-delete {
+    width: 100%;
+    margin-top: 8px;
+  }
+}
+/* ==================== GANTT DAY MARKERS (вертикальные линии дней) ==================== */
+.gantt-time-marker-day {
+  border-right: 2px solid #9ca3af !important;
+  background: linear-gradient(180deg, rgba(156, 163, 175, 0.08) 0%, rgba(156, 163, 175, 0.04) 100%);
+  font-weight: 600;
+  color: #374151;
+  position: relative;
+}
+
+.gantt-time-marker-day::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: -1px;
+  width: 2px;
+  background: linear-gradient(180deg, #9ca3af 0%, #6b7280 100%);
+  box-shadow: 0 0 4px rgba(107, 114, 128, 0.3);
+}
+
+/* Вертикальные линии дней в теле диаграммы */
+.gantt-body {
+  position: relative;
+}
+
+.gantt-row {
+  position: relative;
+}
+
+/* Фоновые линии дней через весь трек */
+.gantt-track::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent calc(100% / 7 - 1px),
+    rgba(156, 163, 175, 0.15) calc(100% / 7 - 1px),
+    rgba(156, 163, 175, 0.15) calc(100% / 7)
+  );
+}
+
+/* ==================== GANTT SMALL BAR (без текста) ==================== */
+.gantt-bar-small {
+  cursor: pointer;
+}
+
+.gantt-bar-small:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(74, 144, 226, 0.4);
+  z-index: 10;
+}
+
+/* Для маленьких полосок показываем tooltip только при hover через title атрибут */
+.gantt-bar-small .gantt-bar-text {
+  display: none !important;
+}

@@ -6,7 +6,7 @@ function Layout() {
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-
+  
   const isActive = (path) => location.pathname === path ? 'active' : '';
 
   useEffect(() => {
@@ -17,7 +17,6 @@ function Layout() {
         setIsMobileMenuOpen(false);
       }
     };
-
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
@@ -28,7 +27,6 @@ function Layout() {
     } else {
       document.body.style.overflow = '';
     }
-    
     return () => {
       document.body.style.overflow = '';
     };
@@ -51,20 +49,20 @@ function Layout() {
   return (
     <div className="app-layout">
       {/* Кнопка бургер-меню (только для мобильных) */}
-      <button 
-        className="menu-toggle" 
+      <button
+        className="menu-toggle"
         onClick={toggleMobileMenu}
         aria-label="Меню"
       >
         {isMobileMenuOpen ? '✕' : '☰'}
       </button>
-      
+
       {/* Оверлей для закрытия меню при клике вне его */}
       <div 
         className={`mobile-overlay ${isMobileMenuOpen ? 'active' : ''}`}
         onClick={closeMobileMenu}
       />
-      
+  
       {/* ЛЕВАЯ ПАНЕЛЬ (САЙДБАР) */}
       <aside className={`sidebar ${isMobileMenuOpen ? 'open' : ''}`}>
         <div className="logo">
@@ -98,6 +96,14 @@ function Layout() {
           >
             <span className="icon">➕</span>
             <span className="label">Создать происшествие</span>
+          </Link>
+          <Link 
+            to="/gant" 
+            className={`nav-item ${isActive('/gant')}`}
+            onClick={handleNavClick}
+          >
+            <span className="icon">📊</span>
+            <span className="label">Диаграмма Ганта</span>
           </Link>
 
           <Link 
