@@ -1,4 +1,3 @@
-/* src/Layout/Layout.css */
 .app-layout {
   display: flex;
   height: 100vh;
@@ -18,9 +17,11 @@
   padding: 0;
   flex-shrink: 0;
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.04);
+  
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1000;
 }
 
-/* Логотип */
 .logo {
   display: flex;
   align-items: center;
@@ -49,7 +50,6 @@
   letter-spacing: 0.5px;
 }
 
-/* Меню навигации */
 .nav-menu {
   display: flex;
   flex-direction: column;
@@ -104,7 +104,6 @@
   justify-content: center;
 }
 
-/* WIP элементы */
 .nav-item.wip {
   opacity: 0.6;
   cursor: not-allowed;
@@ -122,7 +121,6 @@
   letter-spacing: 0.5px;
 }
 
-/* Профиль пользователя */
 .user-profile {
   display: flex;
   align-items: center;
@@ -165,6 +163,51 @@
   font-weight: 500;
 }
 
+.menu-toggle {
+  display: none;
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 1001;
+  width: 44px;
+  height: 44px;
+  background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  color: white;
+  font-size: 24px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu-toggle:hover {
+  transform: scale(1.05);
+}
+
+.menu-toggle:active {
+  transform: scale(0.95);
+}
+
+.mobile-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  backdrop-filter: blur(2px);
+  animation: fadeIn 0.3s ease;
+}
+
+.mobile-overlay.active {
+  display: block;
+}
+
 /* ==================== ОСНОВНОЙ КОНТЕНТ ==================== */
 .main-content {
   flex: 1;
@@ -173,8 +216,8 @@
   overflow-x: hidden;
   padding: 24px;
   background-color: #f5f7fa;
-  
-  /* Скрытие скроллбара */
+  line-height: 1.5;
+ 
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
@@ -186,21 +229,114 @@
 /* ==================== АДАПТИВНОСТЬ ==================== */
 @media (max-width: 768px) {
   .sidebar {
-    width: 100%;
-    height: auto;
-    border-right: none;
-    border-bottom: 1px solid #e1e5eb;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    transform: translateX(-100%);
+    box-shadow: none;
   }
   
+  .sidebar.open {
+    transform: translateX(0);
+    box-shadow: 2px 0 12px rgba(0, 0, 0, 0.15);
+    animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .menu-toggle {
+    display: flex;
+  }
+
+  .main-content {
+    padding: 80px 20px 20px 20px;
+    line-height: 1.5;
+  }
+
   .nav-menu {
-    flex-direction: row;
-    overflow-x: auto;
-    padding: 12px;
+    flex-direction: column;
+    overflow-x: visible;
+    padding: 16px 12px;
   }
   
   .nav-item {
-    white-space: nowrap;
-    padding: 8px 12px;
+    white-space: normal;
+    padding: 12px 16px;
+    font-size: 15px;
+    justify-content: flex-start;
+  }
+  
+  .user-profile {
+    padding: 16px;
+  }
+  
+  .avatar {
+    width: 36px;
+    height: 36px;
+    font-size: 12px;
+  }
+  
+  .user-name {
+    font-size: 13px;
+  }
+  
+  .user-status {
+    font-size: 11px;
+  }
+  
+  .logo {
+    padding: 20px 16px;
+  }
+  
+  .logo-text {
+    font-size: 20px;
+  }
+  
+  .logo-icon {
+    font-size: 28px;
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    padding: 76px 16px 16px 16px;
+    line-height: 1.5;
+  }
+  
+  .menu-toggle {
+    width: 40px;
+    height: 40px;
+    top: 12px;
+    left: 12px;
+    font-size: 20px;
+  }
+  
+  .sidebar {
+    width: 260px;
+  }
+  
+  .nav-item {
+    padding: 10px 14px;
     font-size: 14px;
   }
+  
+  .icon {
+    font-size: 18px;
+    width: 20px;
+  }
+}
+
+.content-wrapper {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  word-wrap: break-word;
+}
+
+.main-content * {
+  max-width: 100%;
+  line-height: 1.5;
+  word-wrap: break-word;
+  box-sizing: border-box;
 }

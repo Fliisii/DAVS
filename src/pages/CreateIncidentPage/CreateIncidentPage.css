@@ -380,7 +380,6 @@
   }
   
   .page-header {
-    flex-direction: column;
     text-align: center;
     padding-bottom: 20px;
   }
