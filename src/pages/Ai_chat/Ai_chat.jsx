@@ -4,15 +4,20 @@ import './Ai_chat.css';
 
 export const Ai_chat = () => {
   const [messages, setMessages] = useState([
-    { 
-      id: 1, 
-      text: 'Здравствуйте! Я ИИ-помощник по регламентам ДАВС. Чем могу помочь?', 
+    {
+      id: 1,
+      text: 'Здравствуйте! Я ИИ-помощник по регламентам ДАВС. Чем могу помочь?',
       sender: 'bot',
       timestamp: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
     }
   ]);
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  
+  // Состояние для прикрепленного файла
+  const [attachedFile, setAttachedFile] = useState(null);
+  const fileInputRef = useRef(null);
+  
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -34,19 +39,42 @@ export const Ai_chat = () => {
     return responses[Math.floor(Math.random() * responses.length)];
   };
 
+  // Обработчик выбора файла
+  const handleFileSelect = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setAttachedFile({
+        name: file.name,
+        type: file.type,
+        preview: URL.createObjectURL(file)
+      });
+    }
+  };
+
+  // Обработчик удаления файла из превью
+  const handleRemoveFile = () => {
+    setAttachedFile(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
+
   const handleSendMessage = (e) => {
     e.preventDefault();
-    if (!inputValue.trim()) return;
+    if (!inputValue.trim() && !attachedFile) return;
 
     const userMessage = {
       id: Date.now(),
       text: inputValue,
       sender: 'user',
-      timestamp: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
+      timestamp: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
+      attachment: attachedFile
     };
 
     setMessages(prev => [...prev, userMessage]);
     setInputValue('');
+    setAttachedFile(null);
+    if (fileInputRef.current) fileInputRef.current.value = '';
     setIsTyping(true);
 
     setTimeout(() => {
@@ -76,12 +104,8 @@ export const Ai_chat = () => {
           </div>
         </div>
         <div className="header-actions">
-          <button className="btn-icon btn-history" title="История">
-            🕐
-          </button>
-          <button className="btn-icon btn-settings" title="Настройки">
-            ⚙️
-          </button>
+          <button className="btn-icon btn-history" title="История">🕐</button>
+          <button className="btn-icon btn-settings" title="Настройки">⚙️</button>
         </div>
       </div>
 
@@ -112,7 +136,13 @@ export const Ai_chat = () => {
                 <span className="message-time">{message.timestamp}</span>
               </div>
               <div className="message-bubble">
-                <p className="message-text">{message.text}</p>
+                {message.text && <p className="message-text">{message.text}</p>}
+                {message.attachment && (
+                  <div className="message-attachment">
+                    <img src={message.attachment.preview} alt="attached" className="msg-attachment-img" />
+                    <span className="msg-attachment-name">{message.attachment.name}</span>
+                  </div>
+                )}
               </div>
               {message.sender === 'bot' && (
                 <div className="message-actions">
@@ -146,13 +176,38 @@ export const Ai_chat = () => {
 
       {/* Input */}
       <form className="chat-input-area" onSubmit={handleSendMessage}>
+        <input
+          type="file"
+          ref={fileInputRef}
+          onChange={handleFileSelect}
+          accept="image/*"
+          style={{ display: 'none' }}
+        />
+
+        {attachedFile && (
+          <div className="attachment-preview">
+            <img src={attachedFile.preview} alt="preview" className="attachment-thumb" />
+            <span className="attachment-name">{attachedFile.name}</span>
+            <button 
+              type="button" 
+              className="btn-remove-attachment" 
+              onClick={handleRemoveFile}
+              title="Удалить вложение"
+            >
+              ✕
+            </button>
+          </div>
+        )}
+
         <div className="input-container">
           <div className="input-actions">
-            <button type="button" className="btn-tool" title="Прикрепить файл">
+            <button 
+              type="button" 
+              className="btn-tool" 
+              title="Прикрепить файл"
+              onClick={() => fileInputRef.current?.click()}
+            >
               📎
-            </button>
-            <button type="button" className="btn-tool" title="Вставить шаблон">
-              📝
             </button>
           </div>
           <input
@@ -163,21 +218,16 @@ export const Ai_chat = () => {
             disabled={isTyping}
             className="chat-input"
           />
-          <button type="button" className="btn-tool" title="Эмодзи">
-            😊
-          </button>
+          <button type="button" className="btn-tool" title="Эмодзи">😊</button>
           <button 
             type="submit" 
-            disabled={!inputValue.trim() || isTyping} 
-            className={`btn-send ${(!inputValue.trim() || isTyping) ? 'disabled' : ''}`}
+            disabled={(!inputValue.trim() && !attachedFile) || isTyping} 
+            className={`btn-send ${(!inputValue.trim() && !attachedFile) || isTyping ? 'disabled' : ''}`}
             title="Отправить"
           >
             ➤
           </button>
         </div>
-        <p className="input-hint">
-          Нажмите Enter для отправки • ИИ использует базу знаний ДАВС
-        </p>
       </form>
     </div>
   );

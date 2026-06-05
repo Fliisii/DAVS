@@ -100,22 +100,6 @@ function Layout() {
             <span className="label">Создать происшествие</span>
           </Link>
 
-          <div className="nav-item wip">
-            <span className="icon">💬</span>
-            <span className="label">
-              Чат штаба
-              <span className="wip-badge">WIP</span>
-            </span>
-          </div>
-
-          <div className="nav-item wip">
-            <span className="icon">📦</span>
-            <span className="label">
-              Архив
-              <span className="wip-badge">WIP</span>
-            </span>
-          </div>
-
           <Link 
             to="/aichat" 
             className={`nav-item ${isActive('/aichat')}`}
