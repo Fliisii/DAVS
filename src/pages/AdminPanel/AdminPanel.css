@@ -1,13 +1,50 @@
 /* src/pages/AdminPanel/AdminPanel.css */
 .admin-panel {
-  min-height: 100%;
+  min-height: 100vh;
   background-color: #f5f7fa;
 }
-
 .admin-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 32px 24px;
+}
+
+/* ==================== LOGIN SCREEN ==================== */
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f5f7fa;
+  padding: 24px;
+}
+.login-card {
+  background: white;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+.login-icon {
+  margin-bottom: 24px;
+  display: inline-flex;
+  padding: 16px;
+  background: #eff6ff;
+  border-radius: 50%;
+}
+.login-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a1f36;
+  margin: 0 0 12px 0;
+}
+.login-subtitle {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0 0 24px 0;
+  line-height: 1.5;
 }
 
 /* ==================== HEADER ==================== */
@@ -19,12 +56,10 @@
   gap: 24px;
   flex-wrap: wrap;
 }
-
 .header-content {
   flex: 1;
   min-width: 250px;
 }
-
 .admin-title {
   font-size: 28px;
   font-weight: 700;
@@ -32,19 +67,16 @@
   margin: 0 0 8px 0;
   letter-spacing: -0.5px;
 }
-
 .admin-subtitle {
   font-size: 14px;
   color: #6b7280;
   margin: 0;
   line-height: 1.5;
 }
-
 .header-stats {
   display: flex;
   gap: 16px;
 }
-
 .stat-card {
   background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
   color: white;
@@ -54,14 +86,12 @@
   min-width: 120px;
   text-align: center;
 }
-
 .stat-value {
   font-size: 28px;
   font-weight: 700;
   line-height: 1;
   margin-bottom: 4px;
 }
-
 .stat-label {
   font-size: 12px;
   opacity: 0.9;
@@ -77,14 +107,12 @@
   gap: 16px;
   flex-wrap: wrap;
 }
-
 .search-box {
   position: relative;
   flex: 1;
   min-width: 280px;
   max-width: 400px;
 }
-
 .search-icon {
   position: absolute;
   left: 14px;
@@ -92,7 +120,6 @@
   transform: translateY(-50%);
   pointer-events: none;
 }
-
 .search-input {
   width: 100%;
   padding: 12px 16px 12px 44px;
@@ -100,22 +127,30 @@
   border-radius: 10px;
   font-size: 14px;
   background: white;
+  color: #1f2937;
   transition: all 0.2s ease;
   outline: none;
+  box-sizing: border-box;
 }
-
 .search-input:focus {
   border-color: #4A90E2;
   box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
 }
-
 .search-input::placeholder {
   color: #9ca3af;
 }
-
+select.search-input {
+  padding-left: 16px;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+}
 .btn-primary {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
   background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
   color: white;
@@ -129,16 +164,18 @@
   box-shadow: 0 2px 8px rgba(74, 144, 226, 0.3);
   white-space: nowrap;
 }
-
 .btn-primary:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(74, 144, 226, 0.4);
 }
-
 .btn-primary:active {
   transform: translateY(0);
 }
+.btn-full {
+  width: 100%;
+}
 
+/* ==================== TABLE ==================== */
 /* ==================== TABLE ==================== */
 .table-container {
   background: white;
@@ -147,17 +184,15 @@
   overflow: hidden;
   border: 1px solid #e1e5eb;
 }
-
 .admin-table {
   width: 100%;
   border-collapse: collapse;
+  color: #1f2937; /* Явно задаем базовый темный цвет для всей таблицы */
 }
-
 .admin-table thead {
   background: linear-gradient(135deg, #f8f9fa 0%, #f3f4f6 100%);
   border-bottom: 2px solid #e1e5eb;
 }
-
 .admin-table th {
   padding: 16px 20px;
   text-align: left;
@@ -167,7 +202,6 @@
   text-transform: uppercase;
   letter-spacing: 0.8px;
 }
-
 .th-user { width: 40%; }
 .th-role { width: 25%; }
 .th-status { width: 20%; }
@@ -176,12 +210,11 @@
 .table-row {
   border-bottom: 1px solid #f3f4f6;
   transition: background-color 0.15s ease;
+  color: #1f2937; /* Гарантируем темный цвет текста в строке */
 }
-
 .table-row:last-child {
   border-bottom: none;
 }
-
 .table-row:hover {
   background-color: #fafbfc;
 }
@@ -189,13 +222,11 @@
 .td-user {
   padding: 16px 20px;
 }
-
 .user-info {
   display: flex;
   align-items: center;
   gap: 14px;
 }
-
 .user-avatar {
   width: 44px;
   height: 44px;
@@ -210,28 +241,24 @@
   flex-shrink: 0;
   box-shadow: 0 2px 6px rgba(74, 144, 226, 0.25);
 }
-
 .user-details {
   display: flex;
   flex-direction: column;
   gap: 2px;
 }
-
 .user-name {
   font-size: 14px;
   font-weight: 600;
-  color: #1f2937;
+  color: #1f2937 !important; /* Принудительно темный цвет для имени */
 }
-
 .user-email {
   font-size: 13px;
-  color: #6b7280;
+  color: #6b7280 !important; /* Принудительно читаемый серый для почты */
 }
 
 .td-role {
   padding: 16px 20px;
 }
-
 .role-badge {
   display: inline-flex;
   align-items: center;
@@ -241,35 +268,30 @@
   font-weight: 600;
   letter-spacing: 0.3px;
 }
-
 .role-admin {
   background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
-  color: #1976d2;
+  color: #1976d2 !important;
   border: 1px solid #90caf9;
 }
-
 .role-editor {
   background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
-  color: #f57c00;
+  color: #f57c00 !important;
   border: 1px solid #ffcc80;
 }
-
 .role-user {
   background: linear-gradient(135deg, #f5f5f5 0%, #eeeeee 100%);
-  color: #616161;
+  color: #616161 !important;
   border: 1px solid #e0e0e0;
 }
 
 .td-status {
   padding: 16px 20px;
 }
-
 .status-indicator {
   display: flex;
   align-items: center;
   gap: 8px;
 }
-
 .status-dot {
   width: 8px;
   height: 8px;
@@ -277,33 +299,28 @@
   background: #48bb78;
   box-shadow: 0 0 0 2px rgba(72, 187, 120, 0.2);
 }
-
 .status-dot.online {
   background: #48bb78;
   animation: pulse 2s infinite;
 }
-
 @keyframes pulse {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.6; }
 }
-
 .status-text {
   font-size: 13px;
-  color: #6b7280;
+  color: #6b7280 !important; /* Принудительно читаемый цвет для статуса */
 }
 
 .td-actions {
   padding: 16px 20px;
   text-align: right;
 }
-
 .action-buttons {
   display: flex;
   gap: 8px;
   justify-content: flex-end;
 }
-
 .btn-icon {
   width: 36px;
   height: 36px;
@@ -317,24 +334,27 @@
   justify-content: center;
   transition: all 0.2s ease;
 }
-
 .btn-icon:hover {
   background: #f3f4f6;
   border-color: #d1d5db;
   color: #374151;
   transform: translateY(-1px);
 }
-
 .btn-edit:hover {
-  color: #4A90E2;
+  color: #4A90E2 !important;
   border-color: #4A90E2;
   background: #eff6ff;
 }
-
 .btn-delete:hover {
-  color: #dc2626;
+  color: #dc2626 !important;
   border-color: #fecaca;
   background: #fef2f2;
+}
+.empty-state {
+  padding: 40px 20px;
+  text-align: center;
+  color: #6b7280;
+  font-size: 14px;
 }
 
 /* ==================== FOOTER ==================== */
@@ -345,17 +365,91 @@
   align-items: center;
   padding: 16px 0;
 }
-
 .footer-info {
   font-size: 13px;
   color: #6b7280;
   font-weight: 500;
 }
-
 .footer-hint {
   font-size: 12px;
   color: #9ca3af;
   font-style: italic;
+}
+
+/* ==================== MODAL ==================== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 24px;
+  animation: fadeIn 0.2s ease;
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.modal-content {
+  background: white;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 480px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  animation: slideUp 0.3s ease;
+}
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.modal-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a1f36;
+  margin: 0;
+  padding: 24px 24px 0 24px;
+}
+.form-group {
+  padding: 20px 24px 0 24px;
+}
+.form-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 8px;
+}
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  padding: 24px;
+  margin-top: 8px;
+  border-top: 1px solid #f3f4f6;
+}
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  color: #374151;
+  border: 1px solid #e5e7eb;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.btn-secondary:hover {
+  background: #f9fafb;
+  border-color: #d1d5db;
 }
 
 /* ==================== RESPONSIVE ==================== */
@@ -363,36 +457,84 @@
   .admin-header {
     flex-direction: column;
   }
-  
   .header-stats {
     width: 100%;
   }
-  
   .stat-card {
     flex: 1;
   }
-  
   .actions-bar {
     flex-direction: column;
     align-items: stretch;
   }
-  
   .search-box {
     max-width: 100%;
     min-width: 100%;
   }
-  
   .btn-add {
     width: 100%;
     justify-content: center;
   }
-  
   .admin-table {
     font-size: 13px;
   }
-  
   .th-actions,
   .td-actions {
     display: none;
   }
+  .modal-content {
+    margin: 16px;
+  }
+}
+/* Добавьте эти стили в конец AdminPanel.css */
+
+/* Более специфичные селекторы для кнопок в таблице */
+.table-container .btn-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  background: white;
+  color: #6b7280 !important; /* Принудительно переопределяем белый цвет */
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.table-container .btn-icon:hover {
+  background: #f3f4f6;
+  border-color: #d1d5db;
+  color: #374151 !important;
+  transform: translateY(-1px);
+}
+
+.table-container .btn-edit:hover {
+  color: #4A90E2 !important;
+  border-color: #4A90E2;
+  background: #eff6ff;
+}
+
+.table-container .btn-delete:hover {
+  color: #dc2626 !important;
+  border-color: #fecaca;
+  background: #fef2f2;
+}
+
+/* Также для текста в таблице */
+.admin-table tbody {
+  color: #1f2937;
+}
+
+.admin-table .user-name {
+  color: #1f2937 !important;
+}
+
+.admin-table .user-email {
+  color: #6b7280 !important;
+}
+
+.admin-table .status-text {
+  color: #6b7280 !important;
 }
