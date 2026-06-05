@@ -218,7 +218,6 @@ export const AiChat = () => {
             disabled={isTyping}
             className="chat-input"
           />
-          <button type="button" className="btn-tool" title="Эмодзи">😊</button>
           <button 
             type="submit" 
             disabled={(!inputValue.trim() && !attachedFile) || isTyping} 
